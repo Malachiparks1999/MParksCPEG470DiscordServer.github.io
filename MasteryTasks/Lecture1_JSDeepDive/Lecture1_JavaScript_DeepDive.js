@@ -92,14 +92,23 @@ console.log("Length of Person Age: " + ageStr);
 console.log("Length of Person Name: " + People[0].name.length);
 
 function minChars(arrPerson){
-    
-}
-
-/*
-function leastChars(arrPeople){
-    let personCharLength = [];
-    for(var person in People){
-
+    let charArr = [];
+    var minChar = 20;
+    for(var i in arrPerson){
+        var charSum = 0;
+        charSum += arrPerson[i].name.length;
+        charSum += arrPerson[i].age.toString().length;
+        charArr.push(charSum);
+    }
+    //console.log("Character Arr: " + charArr);
+    for (var j in charArr){
+        if(minChar > charArr[j]){
+            minChar = charArr[j];
+        }// if
     }//for
+    console.log("Min Char: " + minChar + "\n");
 }
-*/
+
+minChars(People);
+
+// -------------------------------- Button Clicker Counter --------------------------------
