@@ -20,3 +20,12 @@ body {
       margin: 2em;
       border-radius: .5em;
   }
+
+  #hotFood{
+      float: left;
+      border-radius: .4em;
+      width: 35%;
+      height: auto;
+      position: relative;
+      top: -125 px
+  }
