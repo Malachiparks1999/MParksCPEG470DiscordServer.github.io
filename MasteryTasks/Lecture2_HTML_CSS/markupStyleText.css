@@ -1,0 +1,18 @@
+body {
+    text-align: center;
+  }
+  
+  #main-title {
+    font-size: 72px;
+    text-decoration: underline;
+  }
+  
+  section {
+    background-color: salmon;
+    border: solid 1px black;
+    margin: 1em;
+    border-radius: .5em;
+  }
+  
+  
+  

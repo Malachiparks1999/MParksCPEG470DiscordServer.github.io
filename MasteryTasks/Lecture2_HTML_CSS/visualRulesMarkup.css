@@ -8,7 +8,14 @@
     first class solid border with 75% width
     second class has dashed border
 
-    
+    Selectors
+        #part1 id
+        #part2 id
+        .first class
+        .second class
+        
+    ID's make sense since they are general
+    classes are supposed to be gneralized sooooo
   */
 
 #part1 {
