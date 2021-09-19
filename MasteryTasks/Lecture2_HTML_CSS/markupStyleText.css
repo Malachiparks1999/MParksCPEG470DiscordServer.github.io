@@ -14,5 +14,9 @@ body {
     border-radius: .5em;
   }
   
-  
-  
+  .author {
+      background-color: aquamarine;
+      border: dashed 1px red;
+      margin: 2em;
+      border-radius: .5em;
+  }
