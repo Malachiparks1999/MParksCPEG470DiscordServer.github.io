@@ -1,0 +1,35 @@
+ /*
+  Infer: What are the visual rules I used in that example? 
+  What are the selectors? Do the classes make sense? Do the ids?
+
+  Visiual rules:
+    id of part1 has margin of left 10%, salmon as bg color and a 25% width
+    id of part2 has width of 75% of page and lightsalmon of background
+    first class solid border with 75% width
+    second class has dashed border
+
+    
+  */
+
+#part1 {
+    background-color: salmon;
+    width: 25%;
+    margin-left: 10%;
+  }
+  
+  
+  #part2 {
+    background-color: lightsalmon;
+    width: 75%;
+  }
+  
+  .first {
+    border: solid 1px black;
+    width: 75%;
+  }
+  
+  .second {
+    border: dashed 2px red;
+  }
+
+ 
