@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <!--<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>-->
+    </head>
+
+    <body>
+        <p> Enter your name below: </p>
+        <input type="text" id="name">
+        <input type="button" id="submitNameButton" value="Submit">
+
+        <p> Choose your favorite color: </p>
+        <input type="color" id="favColor" value="#ffffff">
+
+        <p> Input your birthday: </p>
+        <input type="date" id="bday">
+    <body>
+
+</html>
+
+<!-- Types of Input: 
+
+<input type="text" id="input1">
+<input type="button" id="input2" value="Button Text Here">
+<input type="checkbox" id="input3" checked>
+<input type="date" id="input4">
+<input type="color" id="input5" value="#00ff00">
+<input type="password" id="input6">
+<input type="file" id="input7">
+<input type="number" id="input8">
+
+-->
+
+<!-- Sample code to disect
+
+var theSecretNumber = Math.floor(Math.random()*100)+1;
+var guessCounter = 0;
+
+// click handler function in js 
+var clickHandler = function(){
+  var myguess = document.querySelector("#guesshere").value;
+  guessCounter = guessCounter + 1;
+  if (myguess == theSecretNumber){
+    document.querySelector("#result").innerText = "You win, made "+guessCounter+" guesses";
+  } else {
+    if (myguess < theSecretNumber){
+      document.querySelector("#result").innerText = "Too low! You've made  "+guessCounter+" guesses"; 
+    }
+    if (myguess > theSecretNumber){
+      document.querySelector("#result").innerText = "Too high! You've made  "+guessCounter+" guesses"; 
+    }
+  }
+};
+
+// bind an id to a handler
+document.querySelector("#guessbutt").addEventListener("click", clickHandler);
+
+-->
