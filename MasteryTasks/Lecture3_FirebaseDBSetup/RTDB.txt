@@ -1,0 +1,3 @@
+https://mparks-discordserverlite-default-rtdb.firebaseio.com/.json
+
+Link to the database in a .json file
