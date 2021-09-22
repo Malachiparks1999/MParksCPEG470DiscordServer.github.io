@@ -42,6 +42,24 @@ const app = initializeApp(firebaseConfig);
 
 const analytics = getAnalytics(app);
 
-// set up database communication
+// set up database communication vars
 
 let db = rtdb.getDatabase(app);
+let chatRef = rtdb.ref(db,"/chats")
+
+// get data from input box then append to list
+
+function sendMessage(){
+    let message = document.getElementById("messageBox").ariaValueMax; // pull input value
+    let newListMessage = document.createElement("li"); // creating new list item to append
+    newListMessage.innerHTML = message; // list items new text
+    document.getElementById("chatLog").append(newListMessage); // append to list
+
+    // pushing list to chats in DB
+    rtdb.onValue(chatRef, (ss) => {
+       db.child("chats").push();
+      });
+}
+
+//binding sendMessage to submit button
+document.getElementById("submitButton").addEventListener("click",sendMessage); 
