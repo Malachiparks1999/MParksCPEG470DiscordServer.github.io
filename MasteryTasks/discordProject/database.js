@@ -55,6 +55,15 @@ function sendMessage(){ // send message
 
 function pushMessage(msg){ // push to db
   rtdb.push(chatRef, msg);
+  renderChats(msg);
 }
 
-document.getElementById("submitButton").addEventListener("click",sendMessage);
+function renderChats(msg){
+  rtdb.onValue(chatRef, ss=>{
+    var newListItem = document.createElement("li");
+    newListItem.innerText = msg;
+    document.getElementById("chatLog").appendChild(newListItem);
+  });
+}
+               
+document.getElementById("submitButton").addEventListener("click",sendMessage); // bind listener
