@@ -47,3 +47,9 @@ const analytics = getAnalytics(app);
 const db = rtdb.getDatabase(app);
 const chatRef = rtdb.ref(db,"/chats")
 
+// pushing to database
+function sendMessage(){
+  rtdb.push(chatRef,"Hello World")
+}//send Message
+
+sendMessage();
