@@ -58,4 +58,3 @@ function pushMessage(msg){ // push to db
 }
 
 document.getElementById("submitButton").addEventListener("click",sendMessage);
-
