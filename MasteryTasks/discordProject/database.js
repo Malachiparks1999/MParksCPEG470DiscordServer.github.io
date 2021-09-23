@@ -47,9 +47,14 @@ const analytics = getAnalytics(app);
 const db = rtdb.getDatabase(app);
 const chatRef = rtdb.ref(db,"/chats")
 
-// pushing to database
-function sendMessage(){
-  rtdb.push(chatRef,"Hello World")
-}//send Message
+// Proof of concept to get data from box
+function sendMessage(){ // send message
+  var message = document.getElementById("messageBox").value;
+  pushMessage(message);
+}
 
-sendMessage();
+function pushMessage(msg){ // push to db
+  rtdb.push(chatRef, msg);
+}
+
+document.getElementById("submitButton").addEventListener("click",sendMessage);
