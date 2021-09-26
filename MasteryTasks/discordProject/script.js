@@ -55,15 +55,19 @@ function sendMessage(){ // send message
 
 function pushMessage(msg){ // push to db
   rtdb.push(chatRef, msg);
-  renderChats(msg);
 }
 
-function renderChats(msg){
-  rtdb.onValue(chatRef, ss=>{
-    var newListItem = document.createElement("li");
-    newListItem.innerText = msg;
-    document.getElementById("chatLog").appendChild(newListItem);
-  });
-}
+//Chat Messages Appearing
+rtdb.onValue(chatRef, ss=>{
+  let saved = ss.val();
+  if(saved == null) {
+    saved = "";
+  }
+  let keys = Object.keys(saved);
+  $("#chatLog").html("");
+  keys.map(pass=>{
+    $("#chatLog").append(`<li style='list-style:none;'>${saved[pass]}</li>`);
+  })
+});
                
 document.getElementById("submitButton").addEventListener("click",sendMessage); // bind listener
