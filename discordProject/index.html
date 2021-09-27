@@ -1,20 +1,29 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Welcome to Braindump</title>
-        <script type="module" src="database.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link rel="stylesheet" href="style.css">
-    </head>
 
-    <body>
-        <div id="channels">
-      </div>
-        <div id="chatSection">
-            <h2 id="title"> Welcome To Braindump </h2>
-            <ul id="chatLog"></ul>
-            <input type="text" id="messageBox">
-            <input type="button" id="submitButton" value="Send Message">
-        </div>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to Braindump</title>
+  <script type="module" src="database.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="register">
+    <input type="text" id="regEmail" placeholder="Register Email">
+    <input type="text" id="regPass" placeholder="Register Password">
+    <input type="text" id="confPass" placeholder="Confirm Password">
+    <input type="button" id="registerCredsButton" value="Register Credentials">
+  </div>
+  <div class="Login">
+    <input type="text" id="loginEmail" placeholder="Register Email">
+    <input type="text" id="loginPass" placeholder="Register Password">
+    <input type="button" id="loginButon" value="Login">
+  <div class="chatSection">
+    <h2 id="title"> Welcome To Braindump </h2>
+    <ul id="chatLog"></ul>
+    <input type="text" id="messageBox">
+    <input type="button" id="submitButton" value="Send Message">
+  </div>
+</body>
+
 </html>
