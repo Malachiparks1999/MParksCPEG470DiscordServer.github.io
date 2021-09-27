@@ -57,7 +57,7 @@ function pushMessage(msg){ // push to db
   rtdb.push(chatRef, msg);
 }
 
-//Chat Messages Appearing
+//Render chat messages by mapping new message to keys
 rtdb.onValue(chatRef, ss=>{
   let saved = ss.val();
   if(saved == null) {
@@ -66,7 +66,7 @@ rtdb.onValue(chatRef, ss=>{
   let keys = Object.keys(saved);
   $("#chatLog").html("");
   keys.map(pass=>{
-    $("#chatLog").append(`<li style='list-style:none;'>${saved[pass]}</li>`);
+    $("#chatLog").append(`<li>${saved[pass]}</li>`);
   })
 });
                
