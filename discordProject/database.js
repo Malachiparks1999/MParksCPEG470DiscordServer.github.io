@@ -6,6 +6,8 @@ import * as rtdb from "https://www.gstatic.com/firebasejs/9.0.2/firebase-databas
 
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-analytics.js";
 
+import * as fbauth from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+
 // TODO: Add SDKs for Firebase products that you want to use
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -75,4 +77,13 @@ rtdb.onValue(chatRef, ss=>{
 
 /* #######################    Binding Functions   ####################### */
 $("#submitButton").click(sendMessage); // bind listener to send message with click
+
+$("#registerCredsButton").click(function() {// bind listener to register message with click
+  alert("the register button has been clicked")
+});
+
+$("#loginButton").click(function() {// bind listener to login message with click
+  alert("the login button has been clicked")
+});
+
 
