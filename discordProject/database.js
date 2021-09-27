@@ -12,13 +12,11 @@ import * as fbauth from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-
 // Your web app's Firebase configuration
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-
   apiKey: "AIzaSyB2zBeQg2jEfb7qIM6JoW8I--6JPW3zrsA",
 
   authDomain: "mparks-discordserverlite.firebaseapp.com",
@@ -34,9 +32,7 @@ const firebaseConfig = {
   appId: "1:426320090593:web:9d02cbbc237c1258c62ea0",
 
   measurementId: "G-Q072GL6V60"
-
 };
-
 
 // Initialize Firebase
 
@@ -45,45 +41,56 @@ const analytics = getAnalytics(app);
 
 // set up database communication vars
 const db = rtdb.getDatabase(app);
-const chatRef = rtdb.ref(db,"/chats");
+const chatRef = rtdb.ref(db, "/chats");
 
 // set up database auth vars
-const auth =  fbauth.getAuth(app);
+const auth = fbauth.getAuth(app);
 
 /* #######################    Helper Functions   ####################### */
 
 // Used to send messages to the rtdb
-function sendMessage(){ // send message
+function sendMessage() {
+  // send message
   var message = $("#messageBox").val();
-  rtdb.push(chatRef,message);
+  rtdb.push(chatRef, message);
   $("#messageBox").val(""); //set element value to empty
 }
-
 
 /* #######################    Rendering Functions   ####################### */
 
 //Chat Messages Appearing Rendering
-rtdb.onValue(chatRef, ss=>{
+rtdb.onValue(chatRef, (ss) => {
   let saved = ss.val();
-  if(saved == null) {
+  if (saved == null) {
     saved = "";
   }
   let keys = Object.keys(saved);
   $("#chatLog").html("");
-  keys.map(pass=>{
+  keys.map((pass) => {
     $("#chatLog").append(`<li>${saved[pass]}</li>`);
-  })
+  });
 });
 
 /* #######################    Binding Functions   ####################### */
 $("#submitButton").click(sendMessage); // bind listener to send message with click
 
-$("#registerCredsButton").click(function() {// bind listener to register message with click
-  alert("the register button has been clicked")
+$("#registerCredsButton").click(function () {
+  // bind listener to register message with
+  var email = $("#regEmail").val();
+  var regPass = $("#regPass").val();
+  var confPass = $("#confPass").val();
+  if (regPass != confPass) {
+    alert("Passwords do not match");
+    var email = $("#regEmail").val("");
+    var regPass = $("#regPass").val("");
+    var confPass = $("#confPass").val("");
+    return;
+  } else {
+    alert("Successfully made");
+  }
 });
 
-$("#loginButton").click(function() {// bind listener to login message with click
-  alert("the login button has been clicked")
+$("#loginButton").click(function () {
+  // bind listener to login message with click
+  alert("the login button has been clicked");
 });
-
-
