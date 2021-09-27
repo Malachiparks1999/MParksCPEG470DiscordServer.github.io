@@ -42,12 +42,13 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 // set up database communication vars
-
 const db = rtdb.getDatabase(app);
-const chatRef = rtdb.ref(db,"/chats")
+const chatRef = rtdb.ref(db,"/chats");
 
 // set up database auth vars
 const auth =  fbauth.getAuth(app);
+
+/* #######################    Helper Functions   ####################### */
 
 // Used to send messages to the rtdb
 function sendMessage(){ // send message
@@ -56,7 +57,10 @@ function sendMessage(){ // send message
   $("#messageBox").val(""); //set element value to empty
 }
 
-//Chat Messages Appearing
+
+/* #######################    Rendering Functions   ####################### */
+
+//Chat Messages Appearing Rendering
 rtdb.onValue(chatRef, ss=>{
   let saved = ss.val();
   if(saved == null) {
@@ -68,5 +72,7 @@ rtdb.onValue(chatRef, ss=>{
     $("#chatLog").append(`<li>${saved[pass]}</li>`);
   })
 });
-               
-$("#submitButton").click(sendMessage); // bind listener
+
+/* #######################    Binding Functions   ####################### */
+$("#submitButton").click(sendMessage); // bind listener to send message with click
+
