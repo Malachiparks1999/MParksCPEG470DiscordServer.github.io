@@ -46,7 +46,7 @@ const chatRef = rtdb.ref(db, "/chats");
 // set up database auth vars
 const auth = fbauth.getAuth(app);
 
-/* #######################    Helper Functions   ####################### */
+/* #######################    Send Messages Functions   ####################### */
 
 // Used to send messages to the rtdb
 function sendMessage() {
@@ -55,6 +55,15 @@ function sendMessage() {
   rtdb.push(chatRef, message);
   $("#messageBox").val(""); //set element value to empty
 }
+
+/* #######################    Auth Functions   ####################### */
+
+fbauth.onAuthStateChanged(auth, (user) => {
+  if (!!user) {
+    // check to see if there is a user
+    $(".login-wrapper").hide();
+  }
+});
 
 /* #######################    Rendering Functions   ####################### */
 
@@ -82,9 +91,10 @@ $("#registerCredsButton").click(function () {
   if (regPass != confPass) {
     alert("Passwords do not match");
     //sanatize boxes so they look empty
-    var email = $("#regEmail").val("");
-    var regPass = $("#regPass").val("");
-    var confPass = $("#confPass").val("");
+    $("#regEmail").val("");
+    $("#username").val("");
+    $("#regPass").val("");
+    $("#confPass").val("");
     return;
   }
   fbauth
@@ -94,9 +104,10 @@ $("#registerCredsButton").click(function () {
       let userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);
       rtdb.set(userRoleRef, true);
       //sanatize boxes so they look empty
-      var email = $("#regEmail").val("");
-      var regPass = $("#regPass").val("");
-      var confPass = $("#confPass").val("");
+      $("#regEmail").val("");
+      $("#username").val("");
+      $("#regPass").val("");
+      $("#confPass").val("");
     })
     .catch(function (error) {
       // Handle Errors here.
@@ -107,6 +118,7 @@ $("#registerCredsButton").click(function () {
     });
 });
 
+// used to sign into FB
 $("#loginButton").click(function () {
   let email = $("#loginEmail").val();
   let pwd = $("#loginPass").val();
@@ -114,6 +126,8 @@ $("#loginButton").click(function () {
     .signInWithEmailAndPassword(auth, email, pwd)
     .then((somedata) => {
       console.log(somedata);
+      $("#loginEmail").val("");
+      $("#loginPass").val("");
     })
     .catch(function (error) {
       // Handle Errors here.
