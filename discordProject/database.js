@@ -39,7 +39,6 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
-
 const analytics = getAnalytics(app);
 
 // set up database communication vars
@@ -47,11 +46,14 @@ const analytics = getAnalytics(app);
 const db = rtdb.getDatabase(app);
 const chatRef = rtdb.ref(db,"/chats")
 
+// set up database auth vars
+const auth =  fbauth.getAuth(app);
+
 // Used to send messages to the rtdb
 function sendMessage(){ // send message
-  var message = document.getElementById("messageBox").value;
+  var message = $("#messageBox").val();
   rtdb.push(chatRef,message);
-$("#messageBox").val(""); //set element value to empty
+  $("#messageBox").val(""); //set element value to empty
 }
 
 //Chat Messages Appearing
@@ -67,4 +69,4 @@ rtdb.onValue(chatRef, ss=>{
   })
 });
                
-document.getElementById("submitButton").addEventListener("click",sendMessage); // bind listener
+$("#submitButton").click(sendMessage); // bind listener
