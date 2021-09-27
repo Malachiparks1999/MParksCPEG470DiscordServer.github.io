@@ -47,17 +47,14 @@ const analytics = getAnalytics(app);
 const db = rtdb.getDatabase(app);
 const chatRef = rtdb.ref(db,"/chats")
 
-// Proof of concept to get data from box
+// Used to send messages to the rtdb
 function sendMessage(){ // send message
   var message = document.getElementById("messageBox").value;
-  pushMessage(message);
+  rtdb.push(chatRef,message);
+$("#messageBox").val(""); //set element value to empty
 }
 
-function pushMessage(msg){ // push to db
-  rtdb.push(chatRef, msg);
-}
-
-//Render chat messages by mapping new message to keys
+//Chat Messages Appearing
 rtdb.onValue(chatRef, ss=>{
   let saved = ss.val();
   if(saved == null) {
