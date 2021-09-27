@@ -108,6 +108,18 @@ $("#registerCredsButton").click(function () {
 });
 
 $("#loginButton").click(function () {
-  // bind listener to login message with click
-  alert("the login button has been clicked");
+  let email = $("#loginEmail").val();
+  let pwd = $("#loginPass").val();
+  fbauth
+    .signInWithEmailAndPassword(auth, email, pwd)
+    .then((somedata) => {
+      console.log(somedata);
+    })
+    .catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
 });
