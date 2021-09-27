@@ -81,13 +81,30 @@ $("#registerCredsButton").click(function () {
   var confPass = $("#confPass").val();
   if (regPass != confPass) {
     alert("Passwords do not match");
+    //sanatize boxes so they look empty
     var email = $("#regEmail").val("");
     var regPass = $("#regPass").val("");
     var confPass = $("#confPass").val("");
     return;
-  } else {
-    alert("Successfully made");
   }
+  fbauth
+    .createUserWithEmailAndPassword(auth, email, confPass)
+    .then((somedata) => {
+      let uid = somedata.user.uid;
+      let userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);
+      rtdb.set(userRoleRef, true);
+      //sanatize boxes so they look empty
+      var email = $("#regEmail").val("");
+      var regPass = $("#regPass").val("");
+      var confPass = $("#confPass").val("");
+    })
+    .catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
 });
 
 $("#loginButton").click(function () {
