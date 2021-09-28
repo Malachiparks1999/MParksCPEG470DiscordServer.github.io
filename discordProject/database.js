@@ -61,17 +61,16 @@ function sendMessage() {
 fbauth.onAuthStateChanged(auth, (user) => {
   if (!!user) {
     // check to see if there is a user
-    $(".login-wrapper").hide();
-    $(".logoutUser").show();
+    $(".login-wrapper").hide(); // hide login and register button
+    $(".logoutUser").show(); // show logout button
     $("#logoutButton").on("click", () => {
       fbauth.signOut(auth);
       $(".logoutUser").hide();
       $(".login-wrapper").show();
     });
-  }
-  else {
-        $(".login-wrapper").show();
-        $(".logoutUser").hide();
+  } else {
+    $(".login-wrapper").show();
+    $(".logoutUser").hide();
   }
 });
 
@@ -98,11 +97,12 @@ $("#registerCredsButton").click(function () {
   var email = $("#regEmail").val();
   var regPass = $("#regPass").val();
   var confPass = $("#confPass").val();
+  var username = $("#usernameReg").val();
   if (regPass != confPass) {
     alert("Passwords do not match");
     //sanatize boxes so they look empty
     $("#regEmail").val("");
-    $("#username").val("");
+    $("#usernameReg").val("");
     $("#regPass").val("");
     $("#confPass").val("");
     return;
@@ -110,12 +110,20 @@ $("#registerCredsButton").click(function () {
   fbauth
     .createUserWithEmailAndPassword(auth, email, confPass)
     .then((somedata) => {
-      let uid = somedata.user.uid;
-      let userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);
-      rtdb.set(userRoleRef, true);
+      var uid = somedata.user.uid;
+      // refs section
+      var userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);
+      var userEmailRef = rtdb.ref(db, `users/${uid}/email`);
+      var usernameRef = rtdb.ref(db, `users/${uid}/username`);
+
+      // setting infromation
+      rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
+      rtdb.set(usernameRef, username); // set username up for user
+      rtdb.set(userEmailRef, email); // set useraccount to email in case
+
       //sanatize boxes so they look empty
       $("#regEmail").val("");
-      $("#username").val("");
+      $("#usernameReg").val("");
       $("#regPass").val("");
       $("#confPass").val("");
     })
@@ -123,6 +131,8 @@ $("#registerCredsButton").click(function () {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
+
+      alert(errorMessage); //notify user
       console.log(errorCode);
       console.log(errorMessage);
     });
@@ -143,6 +153,7 @@ $("#loginButton").click(function () {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
+      alert(errorMessage); // notfiy user
       console.log(errorCode);
       console.log(errorMessage);
     });
