@@ -62,6 +62,16 @@ fbauth.onAuthStateChanged(auth, (user) => {
   if (!!user) {
     // check to see if there is a user
     $(".login-wrapper").hide();
+    $(".logoutUser").show();
+    $("#logoutButton").on("click", () => {
+      fbauth.signOut(auth);
+      $(".logoutUser").hide();
+      $(".login-wrapper").show();
+    });
+  }
+  else {
+        $(".login-wrapper").show();
+        $(".logoutUser").hide();
   }
 });
 
