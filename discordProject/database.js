@@ -106,8 +106,6 @@ $("#registerCredsButton").click(function () {
   if (regPass != confPass) {
     alert("Passwords do not match");
     //sanatize boxes so they look empty
-    $("#regEmail").val("");
-    $("#usernameReg").val("");
     $("#regPass").val("");
     $("#confPass").val("");
     return;
@@ -131,6 +129,7 @@ $("#registerCredsButton").click(function () {
       $("#usernameReg").val("");
       $("#regPass").val("");
       $("#confPass").val("");
+      alert("Registration Successful!");
     })
     .catch(function (error) {
       // Handle Errors here.
@@ -173,6 +172,7 @@ $("#forgotButton").click(function () {
       console.log(somedata);
       // clean up input
       $("#forgotEmailEmail").val("");
+      alert("Password Reset Email Sent");
     })
     .catch(function (error) {
       // Handle Errors here.
