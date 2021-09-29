@@ -163,3 +163,23 @@ $("#loginButton").click(function () {
       console.log(errorMessage);
     });
 });
+
+// used to sign reset email password
+$("#forgotButton").click(function () {
+  let email = $("#forgotEmail").val();
+  fbauth
+    .sendPasswordResetEmail(auth, email)
+    .then((somedata) => {
+      console.log(somedata);
+      // clean up input
+      $("#forgotEmailEmail").val("");
+    })
+    .catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert(errorMessage); // notfiy user
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
+});
