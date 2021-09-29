@@ -14,7 +14,7 @@ import * as fbauth from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.
 
 // Your web app's Firebase configuration
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional user
 
 const firebaseConfig = {
   apiKey: "AIzaSyB2zBeQg2jEfb7qIM6JoW8I--6JPW3zrsA",
@@ -63,14 +63,19 @@ fbauth.onAuthStateChanged(auth, (user) => {
     // check to see if there is a user
     $(".login-wrapper").hide(); // hide login and register button
     $(".logoutUser").show(); // show logout button
+    $(".chatSection").show(); // show chat area
+    $("#loggedIn").html("Logged in as: " + user.email); // show who is logged in
+
     $("#logoutButton").on("click", () => {
       fbauth.signOut(auth);
       $(".logoutUser").hide();
+      $(".chatSection").hide(); // show chat area
       $(".login-wrapper").show();
     });
   } else {
     $(".login-wrapper").show();
     $(".logoutUser").hide();
+    $(".chatSection").hide();
   }
 });
 
