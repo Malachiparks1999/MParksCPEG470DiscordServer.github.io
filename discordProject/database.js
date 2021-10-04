@@ -64,7 +64,7 @@ fbauth.onAuthStateChanged(auth, (user) => {
     $(".login-wrapper").hide(); // hide login and register button
     $(".logoutUser").show(); // show logout button
     $(".chatSection").show(); // show chat area
-    $("#loggedIn").html("Logged in as: " + user.email); // show who is logged in
+    $("#loggedIn").html("Logged in as: " + user.displayName); // show who is logged in
 
     $("#logoutButton").on("click", () => {
       fbauth.signOut(auth);
@@ -110,6 +110,7 @@ $("#registerCredsButton").click(function () {
     $("#confPass").val("");
     return;
   }
+  
   fbauth
     .createUserWithEmailAndPassword(auth, email, confPass)
     .then((somedata) => {
@@ -123,12 +124,21 @@ $("#registerCredsButton").click(function () {
       rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
       rtdb.set(usernameRef, username); // set username up for user
       rtdb.set(userEmailRef, email); // set useraccount to email in case
+    
+      // Editing display name for user to call later
+      fbauth.updateProfile(somedata.user, {
+        displayName: username,
+        photoURL: null
+      }).then(function() {
+        alert("displayName Set!");
+      });
 
       //sanatize boxes so they look empty
       $("#regEmail").val("");
       $("#usernameReg").val("");
       $("#regPass").val("");
       $("#confPass").val("");
+    
       alert("Registration Successful!");
     })
     .catch(function (error) {
