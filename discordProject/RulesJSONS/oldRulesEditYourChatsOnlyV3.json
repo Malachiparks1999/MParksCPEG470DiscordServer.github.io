@@ -1,14 +1,16 @@
 {
-    "rules": {
-      "chats": {
-        "$uid":{
+  "rules": {
+    "chats": {
+      "$uid":{
+        "message":{
           ".read": "auth.uid != null",
-          ".write": "auth.uid != null && root.child('chats').child($uid).child('author').val() === auth.uid",
+        	".write": "auth.uid != null && root.child('chats').child($uid).child('author').val() === auth.uid",
         }
-      },
-      "rules": {
-        ".read": true,
-        ".write": false
       }
+    },
+    "rules": {
+      ".read": true,
+      ".write": false
     }
   }
+}
