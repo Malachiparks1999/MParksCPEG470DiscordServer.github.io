@@ -7,10 +7,6 @@
         	".write": "auth.uid != null && root.child('chats').child($uid).child('author').val() === auth.uid"
         }
       }
-    },
-    "rules": {
-      ".read": true,
-      ".write": false
     }
   }
 }
