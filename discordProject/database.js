@@ -50,9 +50,51 @@ const auth = fbauth.getAuth(app);
 
 // Used to send messages to the rtdb
 function sendMessage() {
-  // send message
-  var message = $("#messageBox").val();
-  rtdb.push(chatRef, message);
+  // set info under message correctly
+  //var userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);
+  //var userEmailRef = rtdb.ref(db, `users/${uid}/email`);
+  //var usernameRef = rtdb.ref(db, `users/${uid}/username`);
+  
+  /*//helper method for sending message
+function sendMsg() {
+    var msg = $("#messageBox").val();
+    msg = msg.trim().replaceAll(" +", " ");
+    if (msg[0] == '/' && msg.length > 10) {
+        if (msg.substring(1, 9) === 'nickname') {
+            let newName = msg.substring(10, msg.length)
+            rtdb.set(rtdb.ref(db, "/users/" + auth.currentUser.uid + "/displayName"), newName);
+            $("#messageBox").val("");
+            document.getElementById("displayName").innerText = "Logged in as: " + newName + " (" + auth.currentUser.email + ")";
+            msg = "";
+        }
+    }
+    else {
+        if (msg != "")
+            addMessage(msg);
+    }
+}
+
+//Helper method to add message to database
+function addMessage(messageContents) {
+    $("#messageBox").val("");
+    var date = new Date();
+    let newMsg = { "message": messageContents, "uuid": auth.currentUser.uid, "timestamp": parseInt(date.getTime()), "edited": "false" };
+    console.log(JSON.stringify(newMsg));
+    rtdb.push(chatRef, newMsg);
+}
+*/ 
+  
+  // used to push message to DB
+  var messageTxt = $("#messageBox").val();
+  var currDate = new Date();
+  let msgToBeSent = {"author": auth.currentUser.uid, "message": messageTxt, "timestamp": parseInt(currDate.getTime()), "edited": "false"};
+  rtdb.push(chatRef, msgToBeSent);
+
+  // setting infromation under message
+  //rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
+  //rtdb.set(usernameRef, username); // set username up for user
+  //rtdb.set(userEmailRef, email); // set useraccount to email in case
+
   $("#messageBox").val(""); //set element value to empty
 }
 
