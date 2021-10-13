@@ -125,6 +125,7 @@ $("#registerCredsButton").click(function () {
       rtdb.set(usernameRef, username); // set username up for user
       rtdb.set(userEmailRef, email); // set useraccount to email in case
     
+      /*
       // Editing display name for user to call later
       fbauth.updateProfile(somedata.user, {
         displayName: username,
@@ -132,6 +133,13 @@ $("#registerCredsButton").click(function () {
       }).then(function() {
         alert("displayName Set!");
       });
+      */
+      // Editing display name for user to call later
+      fbauth.updateProfile(somedata.user, {
+        displayName: username,
+        photoURL: null
+      })
+      $("#loggedIn").html("Logged in as: " + username); // show who is logged in
 
       //sanatize boxes so they look empty
       $("#regEmail").val("");
