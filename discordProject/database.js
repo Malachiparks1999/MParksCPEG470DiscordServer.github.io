@@ -113,7 +113,7 @@ function displayMessage(obj, messageID) {
   var editWrapper = messageID + "_editOrDeleteWrapper";
   var editBtnID = messageID + "_editBtn";
   var editInputID = messageID + "_editInput";
-  
+
   /*
   </input><input type=button id=" +
         delBtnID +
@@ -172,6 +172,12 @@ function displayMessage(obj, messageID) {
 
     // show items in on screen when added
     $("#chatLog").append(messageWrapper);
+    
+    // comes out as undefine why?!?!? --- causing me to be unable to bind funcs ualksdjlsa;kdf
+    console.log($("#chatLog")
+      .find("#" + liID).find("#" + divID).find("#" + editWrapper).find("#" + editBtnID).id)
+    
+
   });
 }
 
