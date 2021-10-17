@@ -98,20 +98,17 @@ function displayMessage(obj, messageID){
   var messageContent = document.createElement('p');
   messageContent.innerText = obj.message;
   messageContent.id = messageID + "_msgContent";
-  var messageAuth = document.createElement('p');
   
   // setting up author portion of message via rtdb
   var username = rtdb.ref(db, `users/${obj.author}/username`);
-  rtdb.onValue(username, ss => {
-    messageAuth.innerText = ss.val(); // pull username from that user at that moment
-  });
-  
-  
+  rtdb.onValue(username, ss => { // creating and pushing message here so username data permanently pushed
+    
   // setting up list Item container to be pushed
- var messageWrapper = '<li><div><p>' + messageAuth.innerText + '</p><h6>' + new Date(obj.timestamp) + '</h6><p>' + messageContent.innerText + '</p></div></li>'
+ var messageWrapper = '<li><div><h3>' + ss.val() + '</h3><h6>' + new Date(obj.timestamp) + '</h6><p>' + messageContent.innerText + '</p></div></li>'
   
   // show items in on screen when added
   $("#chatLog").append(messageWrapper);
+  });
 }
 
 /* #######################    Binding Functions   ####################### */
