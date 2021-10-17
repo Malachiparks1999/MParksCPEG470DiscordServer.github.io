@@ -44,17 +44,24 @@ const db = rtdb.getDatabase(app);
 const chatRef = rtdb.ref(db, "/chats");
 
 // set up database auth vars
-const auth = fbauth.getAuth(app);
+let auth = fbauth.getAuth(app);
+
+// RBAC admin details --- set on when auth is changed
+let admin = true;
 
 /* #######################    Send Messages Functions   ####################### */
 
 // Used to send messages to the rtdb
 function sendMessage() {
-  
   // used to push message to DB
   var messageTxt = $("#messageBox").val();
   var currDate = new Date();
-  let msgToBeSent = {"author": auth.currentUser.uid, "message": messageTxt, "timestamp": parseInt(currDate.getTime()), "edited": "false"};
+  let msgToBeSent = {
+    author: auth.currentUser.uid,
+    message: messageTxt,
+    timestamp: parseInt(currDate.getTime()),
+    edited: "false"
+  };
   rtdb.push(chatRef, msgToBeSent);
 
   $("#messageBox").val(""); //set element value to empty
@@ -75,6 +82,7 @@ fbauth.onAuthStateChanged(auth, (user) => {
       $(".logoutUser").hide();
       $(".chatSection").hide(); // show chat area
       $(".login-wrapper").show();
+      // set admin flag here
     });
   } else {
     $(".login-wrapper").show();
@@ -86,32 +94,84 @@ fbauth.onAuthStateChanged(auth, (user) => {
 /* #######################    Rendering Functions   ####################### */
 
 // renders when chat is added to DB
-rtdb.onChildAdded(chatRef, ss => {
-  displayMessage(ss.val(),ss.key); // passes obj and uuid to function to display
+rtdb.onChildAdded(chatRef, (ss) => {
+  displayMessage(ss.val(), ss.key); // passes obj and uuid to function to display
 });
 
 //When a message is deleted from the database (for when deleting messages)
-rtdb.onChildRemoved(chatRef, ss => {
+rtdb.onChildRemoved(chatRef, (ss) => {
   document.getElementById(ss.key).remove();
 });
 
 // used when rendering chats
-function displayMessage(obj, messageID){
+function displayMessage(obj, messageID) {
   // feeling lazy and don't want to append # to each id for the message
   var liID = messageID + "_liItem";
   var divID = messageID + "_messageWrapper";
   var dateID = messageID + "_dateOfMessage";
   var msgID = messageID + "_msgContents";
+  var editWrapper = messageID + "_editOrDeleteWrapper";
+  var editBtnID = messageID + "_editBtn";
+  var editInputID = messageID + "_editInput";
   
+  /*
+  </input><input type=button id=" +
+        delBtnID +
+        " value=Delete></input></p></div></li>"
+  var delBtnID = messageID + "_delBtn";
+  */
+
   // setting up author portion of message via rtdb
   var username = rtdb.ref(db, `users/${obj.author}/username`);
-  rtdb.onValue(username, ss => { // creating and pushing message here so username data permanently pushed
-    
-  // setting up list Item container to be pushed
- var messageWrapper = '<li id='+liID+'><div id='+divID+'><h3>' + ss.val() + '</h3><h6 id='+dateID+'>' + new Date(obj.timestamp) + '</h6><p id='+msgID+'>' + obj.message + '</p></div></li>'
-  
-  // show items in on screen when added
-  $("#chatLog").append(messageWrapper);
+  rtdb.onValue(username, (ss) => {
+    // creating and pushing message here so username data permanently pushed
+
+    // setting up list Item container to have edit if current author
+    if (obj.author == auth.currentUser.uid) {
+      var messageWrapper =
+        "<li id=" +
+        liID +
+        "><div id=" +
+        divID +
+        "><h3>" +
+        ss.val() +
+        "</h3><h6 id=" +
+        dateID +
+        ">" +
+        new Date(obj.timestamp) +
+        "</h6><p id=" +
+        msgID +
+        ">" +
+        obj.message +
+        "</p><p id=" +
+        editWrapper +
+        "><input type=button id=" +
+        editBtnID +
+        " value=Edit></input><input type=text id=" +
+        editInputID +
+        " placeholder=New Message>";
+    } else {
+      // setting up list Item container to be pushed if auth is not currUser
+      var messageWrapper =
+        "<li id=" +
+        liID +
+        "><div id=" +
+        divID +
+        "><h3>" +
+        ss.val() +
+        "</h3><h6 id=" +
+        dateID +
+        ">" +
+        new Date(obj.timestamp) +
+        "</h6><p id=" +
+        msgID +
+        ">" +
+        obj.message +
+        "</p></div></li>";
+    }
+
+    // show items in on screen when added
+    $("#chatLog").append(messageWrapper);
   });
 }
 
@@ -131,7 +191,7 @@ $("#registerCredsButton").click(function () {
     $("#confPass").val("");
     return;
   }
-  
+
   fbauth
     .createUserWithEmailAndPassword(auth, email, confPass)
     .then((somedata) => {
@@ -145,12 +205,12 @@ $("#registerCredsButton").click(function () {
       rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
       rtdb.set(usernameRef, username); // set username up for user
       rtdb.set(userEmailRef, email); // set useraccount to email in case
-    
+
       // Editing display name for user to call later
       fbauth.updateProfile(somedata.user, {
         displayName: username,
         photoURL: null
-      })
+      });
       $("#loggedIn").html("Logged in as: " + username); // show who is logged in
 
       //sanatize boxes so they look empty
@@ -158,7 +218,7 @@ $("#registerCredsButton").click(function () {
       $("#usernameReg").val("");
       $("#regPass").val("");
       $("#confPass").val("");
-    
+
       alert("Registration Successful!");
     })
     .catch(function (error) {
