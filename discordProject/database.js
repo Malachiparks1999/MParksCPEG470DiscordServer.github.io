@@ -90,21 +90,25 @@ rtdb.onChildAdded(chatRef, ss => {
   displayMessage(ss.val(),ss.key); // passes obj and uuid to function to display
 });
 
+//When a message is deleted from the database (for when deleting messages)
+rtdb.onChildRemoved(chatRef, ss => {
+  document.getElementById(ss.key).remove();
+});
+
 // used when rendering chats
 function displayMessage(obj, messageID){
-  // taken inspiration from Justin Henkie here for how to render information
-  
-  // setting up inner contents of the message
-  var messageContent = document.createElement('p');
-  messageContent.innerText = obj.message;
-  messageContent.id = messageID + "_msgContent";
+  // feeling lazy and don't want to append # to each id for the message
+  var liID = messageID + "_liItem";
+  var divID = messageID + "_messageWrapper";
+  var dateID = messageID + "_dateOfMessage";
+  var msgID = messageID + "_msgContents";
   
   // setting up author portion of message via rtdb
   var username = rtdb.ref(db, `users/${obj.author}/username`);
   rtdb.onValue(username, ss => { // creating and pushing message here so username data permanently pushed
     
   // setting up list Item container to be pushed
- var messageWrapper = '<li><div><h3>' + ss.val() + '</h3><h6>' + new Date(obj.timestamp) + '</h6><p>' + messageContent.innerText + '</p></div></li>'
+ var messageWrapper = '<li id='+liID+'><div id='+divID+'><h3>' + ss.val() + '</h3><h6 id='+dateID+'>' + new Date(obj.timestamp) + '</h6><p id='+msgID+'>' + obj.message + '</p></div></li>'
   
   // show items in on screen when added
   $("#chatLog").append(messageWrapper);
