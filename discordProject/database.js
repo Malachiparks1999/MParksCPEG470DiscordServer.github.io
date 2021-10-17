@@ -50,50 +50,12 @@ const auth = fbauth.getAuth(app);
 
 // Used to send messages to the rtdb
 function sendMessage() {
-  // set info under message correctly
-  //var userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);
-  //var userEmailRef = rtdb.ref(db, `users/${uid}/email`);
-  //var usernameRef = rtdb.ref(db, `users/${uid}/username`);
-  
-  /*//helper method for sending message
-function sendMsg() {
-    var msg = $("#messageBox").val();
-    msg = msg.trim().replaceAll(" +", " ");
-    if (msg[0] == '/' && msg.length > 10) {
-        if (msg.substring(1, 9) === 'nickname') {
-            let newName = msg.substring(10, msg.length)
-            rtdb.set(rtdb.ref(db, "/users/" + auth.currentUser.uid + "/displayName"), newName);
-            $("#messageBox").val("");
-            document.getElementById("displayName").innerText = "Logged in as: " + newName + " (" + auth.currentUser.email + ")";
-            msg = "";
-        }
-    }
-    else {
-        if (msg != "")
-            addMessage(msg);
-    }
-}
-
-//Helper method to add message to database
-function addMessage(messageContents) {
-    $("#messageBox").val("");
-    var date = new Date();
-    let newMsg = { "message": messageContents, "uuid": auth.currentUser.uid, "timestamp": parseInt(date.getTime()), "edited": "false" };
-    console.log(JSON.stringify(newMsg));
-    rtdb.push(chatRef, newMsg);
-}
-*/ 
   
   // used to push message to DB
   var messageTxt = $("#messageBox").val();
   var currDate = new Date();
   let msgToBeSent = {"author": auth.currentUser.uid, "message": messageTxt, "timestamp": parseInt(currDate.getTime()), "edited": "false"};
   rtdb.push(chatRef, msgToBeSent);
-
-  // setting infromation under message
-  //rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
-  //rtdb.set(usernameRef, username); // set username up for user
-  //rtdb.set(userEmailRef, email); // set useraccount to email in case
 
   $("#messageBox").val(""); //set element value to empty
 }
@@ -123,18 +85,34 @@ fbauth.onAuthStateChanged(auth, (user) => {
 
 /* #######################    Rendering Functions   ####################### */
 
-//Chat Messages Appearing Rendering
-rtdb.onValue(chatRef, (ss) => {
-  let saved = ss.val();
-  if (saved == null) {
-    saved = "";
-  }
-  let keys = Object.keys(saved);
-  $("#chatLog").html("");
-  keys.map((pass) => {
-    $("#chatLog").append(`<li>${saved[pass]}</li>`);
-  });
+// renders when chat is added to DB
+rtdb.onChildAdded(chatRef, ss => {
+  displayMessage(ss.val(),ss.key); // passes obj and uuid to function to display
 });
+
+// used when rendering chats
+function displayMessage(obj, messageID){
+  // taken inspiration from Justin Henkie here for how to render information
+  
+  // setting up inner contents of the message
+  var messageContent = document.createElement('p');
+  messageContent.innerText = obj.message;
+  messageContent.id = messageID + "_msgContent";
+  var messageAuth = document.createElement('p');
+  
+  // setting up author portion of message via rtdb
+  var username = rtdb.ref(db, `users/${obj.author}/username`);
+  rtdb.onValue(username, ss => {
+    messageAuth.innerText = ss.val(); // pull username from that user at that moment
+  });
+  
+  
+  // setting up list Item container to be pushed
+ var messageWrapper = '<li><div><p>' + messageAuth.innerText + '</p><h6>' + new Date(obj.timestamp) + '</h6><p>' + messageContent.innerText + '</p></div></li>'
+  
+  // show items in on screen when added
+  $("#chatLog").append(messageWrapper);
+}
 
 /* #######################    Binding Functions   ####################### */
 $("#submitButton").click(sendMessage); // bind listener to send message with click
@@ -167,15 +145,6 @@ $("#registerCredsButton").click(function () {
       rtdb.set(usernameRef, username); // set username up for user
       rtdb.set(userEmailRef, email); // set useraccount to email in case
     
-      /*
-      // Editing display name for user to call later
-      fbauth.updateProfile(somedata.user, {
-        displayName: username,
-        photoURL: null
-      }).then(function() {
-        alert("displayName Set!");
-      });
-      */
       // Editing display name for user to call later
       fbauth.updateProfile(somedata.user, {
         displayName: username,
