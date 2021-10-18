@@ -18,7 +18,7 @@
 
 ### Name: Malachi Parks ###
 #### CPEG470-010: Web Application Security ####
-#### Expected Grade: C- (Explanation Below) :face_with_head_bandage: </br> </br>
+#### Expected Grade: C- (Explanation Below) :face_with_head_bandage: </br> </br> ####
 
 ## Explanation ##
 ![How I feel after this project](images/CurrentEmotions_Ifunny.jpg)
@@ -27,4 +27,4 @@ Before I answer the questions for the questions for the Personal Growth Report I
 
 *TLDR: This is not my best work - I can produce better work if I gave myself more time and restarted rather than patching onto existing flawed code*
 
-## PERSONAL GROWTH REPORT ANSWERS ##
+## :seedling: :potted_plant: :evergreen_tree: PERSONAL GROWTH REPORT ANSWERS :seedling: :potted_plant: :evergreen_tree: ##
