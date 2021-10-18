@@ -21,6 +21,10 @@
 #### Expected Grade: C- (Explanation Below) :face_with_head_bandage: </br> </br> ####
 
 ## Explanation ##
+
+### Completed/Completedish? ###
+### Unimplented ###
+
 ![How I feel after this project](images/CurrentEmotions_Ifunny.jpg)
 
 Before I answer the questions for the questions for the Personal Growth Report I need to ramble about how I feel about this project. I personally believe this is the worst thing I have created. In my not so humble opinion I have created a dumpster fire held together by ductape ie spaghetti code. Its not because this project was "impossibly hard" just I fell into my usual time management trap where I didn't work on it for a week or so because I got pulled in 10 directions between work, my advanced software engineering class (another hard time --- had to fix a broken website and client wanted it done now), along with other items.  
@@ -29,7 +33,20 @@ Before I answer the questions for the questions for the Personal Growth Report I
 
 ## :seedling: :potted_plant: :evergreen_tree: PERSONAL GROWTH REPORT ANSWERS :evergreen_tree:  :potted_plant: :seedling: ##
 
-As Kanye West said:
+** 1. Describe the timeline of the project: HOW MANY HOURS DID YOU SPEND, when did you start, bottlenecks you faced, etc.**
 
-> We're living the future so
-> the present is our past.
+> *Hours Spent: 40-50 hrs minimum*
+> *Started:* Roughly when the project was assigned - so September 15th maybe?
+> *Bottlenecks:*
+>   * Changing snipets of code causing everything to break
+>   * Firebase JSON rules (Didn't realize how they were formatted at first)
+>   * Not knowing a lick of Javascript (had to teach myself)
+> *Timeline:*
+>   1. Week 1: Learning Javascript
+>   2. Week 2: Learning HTML + CSS Selectors
+>   3. Week 3: Firebase CRUD to push chats
+>   4. Week 4: Login Screen + Firebase OAuth
+>   5. Week 5: Sidetracked on other work
+>   6. Week 6: Reformatted Messages + Rendering + Started editing messages (Not done)
+
+** 2. How did you meaningfully grow as a developer from the project (if you did)? **
