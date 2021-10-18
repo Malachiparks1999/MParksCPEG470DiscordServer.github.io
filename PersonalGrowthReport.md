@@ -18,7 +18,7 @@
 
 ### Name: Malachi Parks ###
 #### CPEG470-010: Web Application Security ####
-#### Expected Grade: C- (Explanation Below) :face_with_head_bandage: #### </br>
+#### Expected Grade: C- (Explanation Below) :face_with_head_bandage: #### </br> </br>
 
 ## Explanation ##
 ![How I feel after this project] (CurrentEmotions_Ifunny.jpg)
