@@ -22,8 +22,8 @@
 
 ## Explanation ##
 
-### Completed/Completedish? ###
-### Unimplented ###
+#### Completed/Completedish? ####
+#### Unimplented ####
 
 ![How I feel after this project](images/CurrentEmotions_Ifunny.jpg)
 
