@@ -33,15 +33,15 @@ Before I answer the questions for the questions for the Personal Growth Report I
 
 ## :seedling: :potted_plant: :evergreen_tree: PERSONAL GROWTH REPORT ANSWERS :evergreen_tree:  :potted_plant: :seedling: ##
 
-** 1. Describe the timeline of the project: HOW MANY HOURS DID YOU SPEND, when did you start, bottlenecks you faced, etc.**
+**1. Describe the timeline of the project: HOW MANY HOURS DID YOU SPEND, when did you start, bottlenecks you faced, etc.**
 
-> *Hours Spent: 40-50 hrs minimum*
-> *Started:* Roughly when the project was assigned - so September 15th maybe?
-> *Bottlenecks:*
+> *__Hours Spent:__* 40-50 hrs minimum </br>
+> *__Started:__* Roughly when the project was assigned - so September 15th maybe? </br>
+> *__Bottlenecks:__*
 >   * Changing snipets of code causing everything to break
 >   * Firebase JSON rules (Didn't realize how they were formatted at first)
->   * Not knowing a lick of Javascript (had to teach myself)
-> *Timeline:*
+>   * Not knowing a lick of Javascript (had to teach myself) </br>
+> *__Timeline:__*
 >   1. Week 1: Learning Javascript
 >   2. Week 2: Learning HTML + CSS Selectors
 >   3. Week 3: Firebase CRUD to push chats
@@ -49,4 +49,4 @@ Before I answer the questions for the questions for the Personal Growth Report I
 >   5. Week 5: Sidetracked on other work
 >   6. Week 6: Reformatted Messages + Rendering + Started editing messages (Not done)
 
-** 2. How did you meaningfully grow as a developer from the project (if you did)? **
+**2. How did you meaningfully grow as a developer from the project (if you did)?**
