@@ -121,9 +121,10 @@ function displayMessage(obj, messageID) {
   
   var nameElement = document.createElement('h3'); // holds name element
   var username = rtdb.ref(db, `users/${obj.author}/username`);
-  rtdb.get(username, (ss) => {
+  rtdb.onValue(username, (ss) => {
+    alert(ss.val());
     nameElement.innerText = ss.val(); // whatever value is there, add it to element
-    msgDivWrapper.append(nameElement);
+    msgDivWrapper.prepend(nameElement);
   });
   
   // shows message date of when sent
@@ -161,7 +162,7 @@ function displayMessage(obj, messageID) {
     msgDivWrapper.append(editWrapper);
   }
   
-  // adding delete message if admin
+  // adding delete message if admin to all messages, or current users messages
   if(adminStatus == true || obj.author == auth.currentUser.uid){
     var msgDelBtn = document.createElement('input');
     msgDelBtn.id = delBtnID;
@@ -184,70 +185,12 @@ function displayMessage(obj, messageID) {
   var delBtnID = messageID + "_delBtn";
   */
 
-  /*
-  // setting up author portion of message via rtdb
-  var username = rtdb.ref(db, `users/${obj.author}/username`);
-  rtdb.onValue(username, (ss) => {
-    // creating and pushing message here so username data permanently pushed
-
-    // setting up list Item container to have edit if current author
-    if (obj.author == auth.currentUser.uid) {
-      var messageWrapper =
-        "<li id=" +
-        liID +
-        "><div id=" +
-        divID +
-        "><h3>" +
-        ss.val() +
-        "</h3><h6 id=" +
-        dateID +
-        ">" +
-        new Date(obj.timestamp) +
-        "</h6><p id=" +
-        msgID +
-        ">" +
-        obj.message +
-        "</p><p id=" +
-        editWrapper +
-        "><input type=button id=" +
-        editBtnID +
-        " value=Edit></input><input type=text id=" +
-        editInputID +
-        " placeholder=New Message>";
-    } else {
-      // setting up list Item container to be pushed if auth is not currUser
-      var messageWrapper =
-        "<li id=" +
-        liID +
-        "><div id=" +
-        divID +
-        "><h3>" +
-        ss.val() +
-        "</h3><h6 id=" +
-        dateID +
-        ">" +
-        new Date(obj.timestamp) +
-        "</h6><p id=" +
-        msgID +
-        ">" +
-        obj.message +
-        "</p></div></li>";
-    }
-
-    // show items in on screen when added
-    $("#chatLog").append(messageWrapper);
-    
-    // comes out as undefine why?!?!? --- causing me to be unable to bind funcs ualksdjlsa;kdf
-    console.log($("#chatLog")
-      .find("#" + liID).find("#" + divID).find("#" + editWrapper).find("#" + editBtnID).id)
-   
-
-  });
-  */
 }
 
 /* #######################    Binding Functions   ####################### */
 $("#submitButton").click(sendMessage); // bind listener to send message with click
+
+// delete message here binding + editing message here binding
 
 $("#registerCredsButton").click(function () {
   // bind listener to register message with
