@@ -43,11 +43,11 @@ Before I answer the questions for the questions for the Personal Growth Report I
 >   * Not knowing a lick of Javascript (had to teach myself) </br>
 
 > *__Timeline:__*
->   1. Week 1: Learning Javascript
->   2. Week 2: Learning HTML + CSS Selectors
->   3. Week 3: Firebase CRUD to push chats
->   4. Week 4: Login Screen + Firebase OAuth
->   5. Week 5: Sidetracked on other work
->   6. Week 6: Reformatted Messages + Rendering + Started editing messages (Not done)
+>   1. *Week 1:* Learning Javascript
+>   2. *Week 2:* Learning HTML + CSS Selectors
+>   3. *Week 3:* Firebase CRUD to push chats + HTML Setup + base CSS
+>   4. *Week 4:* Login Screen + Firebase OAuth
+>   5. *Week 5:* Sidetracked on other work
+>   6. *Week 6:* Reformatted Messages + Rendering + Started editing messages (Not done)
 
 **2. How did you meaningfully grow as a developer from the project (if you did)?**
