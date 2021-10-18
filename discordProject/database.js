@@ -46,9 +46,6 @@ const chatRef = rtdb.ref(db, "/chats");
 // set up database auth vars
 let auth = fbauth.getAuth(app);
 
-// RBAC admin details --- set on when auth is changed
-let admin = true;
-
 /* #######################    Send Messages Functions   ####################### */
 
 // Used to send messages to the rtdb
@@ -82,7 +79,6 @@ fbauth.onAuthStateChanged(auth, (user) => {
       $(".logoutUser").hide();
       $(".chatSection").hide(); // show chat area
       $(".login-wrapper").show();
-      // set admin flag here
     });
   } else {
     $(".login-wrapper").show();
@@ -98,14 +94,10 @@ rtdb.onChildAdded(chatRef, (ss) => {
   displayMessage(ss.val(), ss.key); // passes obj and uuid to function to display
 });
 
-//When a message is deleted from the database (for when deleting messages)
-rtdb.onChildRemoved(chatRef, (ss) => {
-  document.getElementById(ss.key).remove();
-});
 
 // used when rendering chats
 function displayMessage(obj, messageID) {
-  // feeling lazy and don't want to append # to each id for the message
+  // Id creation on the fly (idea came from working with Justin Henike)
   var liID = messageID + "_liItem";
   var divID = messageID + "_messageWrapper";
   var dateID = messageID + "_dateOfMessage";
