@@ -1,4 +1,4 @@
-# PERSONAL GROWTH REPORT #
+## PERSONAL GROWTH REPORT QUESTIONS ##
     1. Describe the timeline of the project: HOW MANY HOURS DID YOU SPEND, when did you start, bottlenecks you faced, etc.
     2. How did you meaningfully grow as a developer from the project (if you did)?
     3. Were there any "A-HA" insights that you'll carry with you into future work?
@@ -17,12 +17,14 @@
 
 
 ### Name: Malachi Parks ###
-### CPEG470-010: Web Application Security ###
-### Expected Grade: C- (Explanation Below) :face_with_head_bandage: ###
+#### CPEG470-010: Web Application Security ####
+#### Expected Grade: C- (Explanation Below) :face_with_head_bandage: #### </br>
 
 ## Explanation ##
-[How I feel after this project] (images/CurrentEmotions_Ifunny.jpg)
+![How I feel after this project] (images/CurrentEmotions_Ifunny.jpg)
 
-Before I answer the questions for the questions for the Personal Growth Report I need to ramble about how I feel about this project. I personally believe this is the worst thing I have created. In my not so humble opinion I have created a dumpster fire held together by ductape ie spaghetti code. Its not because this project was "impossibly hard" just I fell into my usual time management trap where I didn't work on it for a week or so because I got pulled in 10 directions between work, my advanced software engineering class (another hard time --- had to fix a broken website and client wanted it done now), along with other items. 
+Before I answer the questions for the questions for the Personal Growth Report I need to ramble about how I feel about this project. I personally believe this is the worst thing I have created. In my not so humble opinion I have created a dumpster fire held together by ductape ie spaghetti code. Its not because this project was "impossibly hard" just I fell into my usual time management trap where I didn't work on it for a week or so because I got pulled in 10 directions between work, my advanced software engineering class (another hard time --- had to fix a broken website and client wanted it done now), along with other items.  
 
-**TLDR: This is not my best work - I can produce better work if I gave it more time and restarted rather than patching onto existing flawed code**
+*TLDR: This is not my best work - I can produce better work if I gave myself more time and restarted rather than patching onto existing flawed code*
+
+## PERSONAL GROWTH REPORT ANSWERS ##
