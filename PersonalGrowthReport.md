@@ -41,6 +41,7 @@ Before I answer the questions for the questions for the Personal Growth Report I
 >   * Changing snipets of code causing everything to break
 >   * Firebase JSON rules (Didn't realize how they were formatted at first)
 >   * Not knowing a lick of Javascript (had to teach myself) </br>
+
 > *__Timeline:__*
 >   1. Week 1: Learning Javascript
 >   2. Week 2: Learning HTML + CSS Selectors
