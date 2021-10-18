@@ -27,4 +27,9 @@ Before I answer the questions for the questions for the Personal Growth Report I
 
 *TLDR: This is not my best work - I can produce better work if I gave myself more time and restarted rather than patching onto existing flawed code*
 
-## :seedling: :potted_plant: :evergreen_tree: PERSONAL GROWTH REPORT ANSWERS :seedling: :potted_plant: :evergreen_tree: ##
+## :seedling: :potted_plant: :evergreen_tree: PERSONAL GROWTH REPORT ANSWERS :evergreen_tree:  :potted_plant: :seedling: ##
+
+As Kanye West said:
+
+> We're living the future so
+> the present is our past.
