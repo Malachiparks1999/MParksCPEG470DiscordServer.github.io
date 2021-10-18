@@ -122,7 +122,6 @@ function displayMessage(obj, messageID) {
   var nameElement = document.createElement('h3'); // holds name element
   var username = rtdb.ref(db, `users/${obj.author}/username`);
   rtdb.onValue(username, (ss) => {
-    alert(ss.val());
     nameElement.innerText = ss.val(); // whatever value is there, add it to element
     msgDivWrapper.prepend(nameElement);
   });
