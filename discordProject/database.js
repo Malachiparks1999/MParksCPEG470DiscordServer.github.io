@@ -46,6 +46,9 @@ const chatRef = rtdb.ref(db, "/chats");
 // set up database auth vars
 let auth = fbauth.getAuth(app);
 
+// var for checking if user is admin upon authLogin
+let adminStatus = false;
+
 /* #######################    Send Messages Functions   ####################### */
 
 // Used to send messages to the rtdb
@@ -73,6 +76,8 @@ fbauth.onAuthStateChanged(auth, (user) => {
     $(".logoutUser").show(); // show logout button
     $(".chatSection").show(); // show chat area
     $("#loggedIn").html("Logged in as: " + user.displayName); // show who is logged in
+    
+    // change admin status here
 
     $("#logoutButton").on("click", () => {
       fbauth.signOut(auth);
@@ -102,10 +107,76 @@ function displayMessage(obj, messageID) {
   var divID = messageID + "_messageWrapper";
   var dateID = messageID + "_dateOfMessage";
   var msgID = messageID + "_msgContents";
-  var editWrapper = messageID + "_editOrDeleteWrapper";
+  var editWrapperID = messageID + "_editOrDeleteWrapper";
   var editBtnID = messageID + "_editBtn";
-  var editInputID = messageID + "_editInput";
-
+  var editInputTextID = messageID + "_editInput";
+  var delBtnID = messageID + "_delBtn"
+  
+  // appending each element, basic contents 
+  var msgListWrapper = document.createElement('li'); // list item (main unit)
+  msgListWrapper.id = liID;
+  
+  var msgDivWrapper = document.createElement('div'); // div item holds all message contents
+  msgDivWrapper.id = divID;
+  
+  var nameElement = document.createElement('h3'); // holds name element
+  var username = rtdb.ref(db, `users/${obj.author}/username`);
+  rtdb.get(username, (ss) => {
+    nameElement.innerText = ss.val(); // whatever value is there, add it to element
+    msgDivWrapper.append(nameElement);
+  });
+  
+  // shows message date of when sent
+  var msgDate = document.createElement('h6');
+  msgDate.id = dateID;
+  msgDate.innerText = new Date(obj.timestamp);
+  msgDivWrapper.append(msgDate);
+  
+  // shows the content of the message
+  var msgContent = document.createElement('p');
+  msgContent.id = msgID;
+  msgContent.innerText = obj.message;
+  msgDivWrapper.append(msgContent);
+  
+  // if author add edit button
+  if(obj.author == auth.currentUser.uid){
+    let editWrapper = document.createElement('p');
+    editWrapper.id = editWrapperID;
+    
+    // button that allows editing
+    var editButton = document.createElement('input');
+    editButton.id = editBtnID;
+    editButton.type = "button";
+    editButton.value = "Edit Message";
+    editWrapper.append(editButton);
+    
+    // input box that shows up to take text for new message
+    var editInputText = document.createElement('input');
+    editInputText.id = editInputTextID;
+    editInputText.type = "text";
+    editButton.placeholder = "New Message";
+    editWrapper.append(editInputText);
+    
+    // appending to divWrapper
+    msgDivWrapper.append(editWrapper);
+  }
+  
+  // adding delete message if admin
+  if(adminStatus == true || obj.author == auth.currentUser.uid){
+    var msgDelBtn = document.createElement('input');
+    msgDelBtn.id = delBtnID;
+    msgDelBtn.type = "button";
+    msgDelBtn.value = "Delete Message";
+    msgDivWrapper.append(msgDelBtn);
+  }
+  
+  // adding internal HTML to list items
+  msgListWrapper.append(msgDivWrapper);
+  
+  
+  // appending item to render on page
+  $("#chatLog").append(msgListWrapper);
+  
   /*
   </input><input type=button id=" +
         delBtnID +
@@ -113,6 +184,7 @@ function displayMessage(obj, messageID) {
   var delBtnID = messageID + "_delBtn";
   */
 
+  /*
   // setting up author portion of message via rtdb
   var username = rtdb.ref(db, `users/${obj.author}/username`);
   rtdb.onValue(username, (ss) => {
@@ -168,9 +240,10 @@ function displayMessage(obj, messageID) {
     // comes out as undefine why?!?!? --- causing me to be unable to bind funcs ualksdjlsa;kdf
     console.log($("#chatLog")
       .find("#" + liID).find("#" + divID).find("#" + editWrapper).find("#" + editBtnID).id)
-    
+   
 
   });
+  */
 }
 
 /* #######################    Binding Functions   ####################### */
