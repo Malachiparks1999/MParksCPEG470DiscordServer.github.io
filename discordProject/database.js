@@ -72,7 +72,6 @@ function sendMessage() {
 fbauth.onAuthStateChanged(auth, (user) => {
   if (!!user) {
     // change admin status here
-    console.log(adminStatus);
     var adminRef = rtdb.ref(db, `users/${auth.currentUser.uid}/roles/admin`);
     rtdb.onValue(adminRef, (ss) => {
       adminStatus = ss.val();
@@ -82,21 +81,11 @@ fbauth.onAuthStateChanged(auth, (user) => {
     });
     
     // display list of users here to promote if admin
-    var allUsersRef = rtdb.ref(db,'/users/')
+    var allUsersRef = rtdb.ref(db,'/users/');
+    
+    // creates element in dom to render
     rtdb.onChildAdded(allUsersRef, (ss) => {
-      // adding users to list to be seen
-      var newUserLI = document.createElement('li');
-      newUserLI.innerText = ss.val().username + " ";
-      
-      // creating button for admin promo
-      var promoteBtn = document.createElement('input');
-      promoteBtn.type = "button";
-      promoteBtn.value = "Promote To Admin";
-      newUserLI.append(promoteBtn);
-      
-      
-      // finally appending last
-      $("#userList").append(newUserLI);
+      displayPromoteUser(ss.val(),ss.key);
     });
     
     // check to see if there is a user
@@ -235,6 +224,42 @@ function displayMessage(obj, messageID) {
     var messageToDel = rtdb.ref(db, `chats/${messageID}/`);
     rtdb.remove(messageToDel);
   });
+}
+
+function displayPromoteUser(obj,userID){
+        // adding users to list to be seen
+      var newUserLI = document.createElement('li');
+      newUserLI.innerText = obj.username + " ";
+      
+      // creating button for admin promo
+      var promoteBtn = document.createElement('input');
+      var promoteBtnID = obj.email + "_BtnID";
+      promoteBtn.id = promoteBtnID;
+      promoteBtn.type = "button";
+      promoteBtn.value = "Promote To Admin";
+      
+      newUserLI.append(promoteBtn);
+      
+      // Append to list on DOM
+      $("#userList").append(newUserLI);
+      
+      // binding promote buttons to function event-binding-on-dynamically-created-elements
+      document.getElementById(promoteBtnID).addEventListener("click", function (){
+        var adminRef = rtdb.ref(db, `users/${userID}/roles/admin`)
+        rtdb.set(adminRef,true);
+        alert(obj.username+" was promoted to admin!")
+      });
+        
+        /*
+        //EDITNG FLAG THAT MESSAGE HAS BEEN EDITED
+        var editMessageRef = rtdb.ref(db, `/chats/${messageID}/edited/`);
+        rtdb.set(editMessageRef, "true");
+
+        // EDITS MESSAGE HELL YEAH
+        var newVal = $(document).find('#'+editInputTextID).val();
+        var currMessageRef = rtdb.ref(db, `/chats/${messageID}/message/`);
+        rtdb.set(currMessageRef, newVal + " (edited)");
+        */
 }
 
 /* #######################    Binding Functions   ####################### */
