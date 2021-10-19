@@ -272,8 +272,14 @@ function displayPromoteUser(obj,userID){
 $("#submitButton").click(sendMessage); // bind listener to send message with click
 
 $("#createChannelBtn").click(function (){
-  var channelName = $("#channelNameBox").val();
-  console.log(channelName);
+  var channelNameRef = rtdb.ref(db,"channels/");
+  
+  // creating channel object in DB
+  var channelName = {
+    name: $("#channelNameBox").val(),
+  };
+  rtdb.push(channelNameRef,channelName)
+  $("#channelNameBox").val(""); // clear out box
 });
 
 $("#registerCredsButton").click(function () {

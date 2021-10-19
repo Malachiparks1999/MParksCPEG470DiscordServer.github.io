@@ -35,7 +35,7 @@ Before I answer the questions for the questions for the Personal Growth Report I
 
 **1. Describe the timeline of the project: HOW MANY HOURS DID YOU SPEND, when did you start, bottlenecks you faced, etc.**
 
-> *__Hours Spent:__* 40-50 hrs minimum </br>
+> *__Hours Spent:__* 60 hrs minimum </br>
 > *__Started:__* Roughly when the project was assigned - so September 15th maybe? </br>
 > *__Bottlenecks:__*
 >   * Changing snipets of code causing everything to break
