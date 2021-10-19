@@ -76,30 +76,31 @@ fbauth.onAuthStateChanged(auth, (user) => {
     var adminRef = rtdb.ref(db, `users/${auth.currentUser.uid}/roles/admin`);
     rtdb.onValue(adminRef, (ss) => {
       adminStatus = ss.val();
-      if(adminStatus){
-        $(".admin-controls").show() // hide admin area)
+      if (adminStatus) {
+        $(".admin-controls").show(); // hide admin area)
       }
     });
-    
+
     // display list of users here to promote if admin
-    var allUsersRef = rtdb.ref(db,'/users/');
-    
+    var allUsersRef = rtdb.ref(db, "/users/");
+
     // creates element in dom to render
     rtdb.onChildAdded(allUsersRef, (ss) => {
-      displayPromoteUser(ss.val(),ss.key);
+      displayPromoteUser(ss.val(), ss.key);
     });
-    
+
     // check to see if there is a user
     $(".login-wrapper").hide(); // hide login and register button
     $(".logoutUser").show(); // show logout button
     $(".chatSection").show(); // show chat area
+    renderChats();
     $("#loggedIn").html("Logged in as: " + user.displayName); // show who is logged in
 
     $("#logoutButton").on("click", () => {
       fbauth.signOut(auth);
       $(".logoutUser").hide();
       $(".chatSection").hide(); // show chat area
-      $(".admin-controls").hide() // hide admin area
+      $(".admin-controls").hide(); // hide admin area
       $(".login-wrapper").show();
       adminStatus = false;
     });
@@ -107,13 +108,14 @@ fbauth.onAuthStateChanged(auth, (user) => {
     $(".login-wrapper").show();
     $(".logoutUser").hide();
     $(".chatSection").hide();
-    $(".admin-controls").hide() // hide admin area
+    $(".admin-controls").hide(); // hide admin area
     adminStatus = false;
   }
 });
 
 /* #######################    Rendering Functions   ####################### */
-
+function renderChats(){
+  $("#chatLog").empty(); // make sure messages don't repeat
 // renders when chat is added to DB
 rtdb.onChildAdded(chatRef, (ss) => {
   displayMessage(ss.val(), ss.key); // passes obj and uuid to function to display
@@ -127,10 +129,11 @@ rtdb.onChildChanged(chatRef, (ss) => {
 
 // renders when edit made to message in DB
 rtdb.onChildRemoved(chatRef, (ss) => {
-  if($('#' + ss.key + '_liItem') != null){
-    $('#' + ss.key + '_liItem').remove();
+  if ($("#" + ss.key + "_liItem") != null) {
+    $("#" + ss.key + "_liItem").remove();
   }
 });
+}
 
 // used when rendering chats
 function displayMessage(obj, messageID) {
@@ -142,144 +145,150 @@ function displayMessage(obj, messageID) {
   var editWrapperID = messageID + "_editOrDeleteWrapper";
   var editBtnID = messageID + "_editBtn";
   var editInputTextID = messageID + "_editInput";
-  var delBtnID = messageID + "_delBtn"
-  
-  // appending each element, basic contents 
-  var msgListWrapper = document.createElement('li'); // list item (main unit)
+  var delBtnID = messageID + "_delBtn";
+
+  // appending each element, basic contents
+  var msgListWrapper = document.createElement("li"); // list item (main unit)
   msgListWrapper.id = liID;
-  
-  var msgDivWrapper = document.createElement('div'); // div item holds all message contents
+
+  var msgDivWrapper = document.createElement("div"); // div item holds all message contents
   msgDivWrapper.id = divID;
-  
-  var nameElement = document.createElement('h3'); // holds name element
+
+  var nameElement = document.createElement("h3"); // holds name element
   var username = rtdb.ref(db, `users/${obj.author}/username`);
   rtdb.onValue(username, (ss) => {
     nameElement.innerText = ss.val(); // whatever value is there, add it to element
     msgDivWrapper.prepend(nameElement);
   });
-  
+
   // shows message date of when sent
-  var msgDate = document.createElement('h6');
+  var msgDate = document.createElement("h6");
   msgDate.id = dateID;
   msgDate.innerText = new Date(obj.timestamp);
   msgDivWrapper.append(msgDate);
-  
+
   // shows the content of the message
-  var msgContent = document.createElement('p');
+  var msgContent = document.createElement("p");
   msgContent.id = msgID;
   msgContent.innerText = obj.message;
   msgDivWrapper.append(msgContent);
-  
+
   // if author add edit button
-  if(obj.author == auth.currentUser.uid){
-    let editWrapper = document.createElement('p');
+  if (obj.author == auth.currentUser.uid) {
+    let editWrapper = document.createElement("p");
     editWrapper.id = editWrapperID;
-    
+
     // button that allows editing
-    var editButton = document.createElement('input');
+    var editButton = document.createElement("input");
     editButton.id = editBtnID;
     editButton.type = "button";
     editButton.value = "Edit Message";
     editWrapper.append(editButton);
-    
+
     // input box that shows up to take text for new message
-    var editInputText = document.createElement('input');
+    var editInputText = document.createElement("input");
     editInputText.id = editInputTextID;
     editInputText.type = "text";
     editButton.placeholder = "New Message";
     editWrapper.append(editInputText);
-    
+
     // appending to divWrapper
     msgDivWrapper.append(editWrapper);
   }
-  
+
   // adding delete message if admin to all messages, or current users messages
-  if(adminStatus == true || obj.author == auth.currentUser.uid){
-    var msgDelBtn = document.createElement('input');
+  if (adminStatus == true || obj.author == auth.currentUser.uid) {
+    var msgDelBtn = document.createElement("input");
     msgDelBtn.id = delBtnID;
     msgDelBtn.type = "button";
     msgDelBtn.value = "Delete Message";
     msgDivWrapper.append(msgDelBtn);
   }
-  
+
   // adding internal HTML to list items
   msgListWrapper.append(msgDivWrapper);
-  
-  
+
   // appending item to render on page
   $("#chatLog").append(msgListWrapper);
-  
+
   // edit button listeners (pulled from https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
-  $(document).on("click", "#"+editBtnID, function(){
-    
+  $(document).on("click", "#" + editBtnID, function () {
     //EDITNG FLAG THAT MESSAGE HAS BEEN EDITED
     var editMessageRef = rtdb.ref(db, `/chats/${messageID}/edited/`);
     rtdb.set(editMessageRef, "true");
-    
+
     // EDITS MESSAGE HELL YEAH
-    var newVal = $(document).find('#'+editInputTextID).val();
-    var currMessageRef = rtdb.ref(db, `channels/${currentChatRoom}/chats/${messageID}/message/`);
+    var newVal = $(document)
+      .find("#" + editInputTextID)
+      .val();
+    var currMessageRef = rtdb.ref(
+      db,
+      `channels/${currentChatRoom}/chats/${messageID}/message/`
+    );
     rtdb.set(currMessageRef, newVal + " (edited)");
   });
-  
+
   // delete button listeners (pulled from https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
-  $(document).on("click", "#"+delBtnID, function(){
-    var messageToDel = rtdb.ref(db, `channels/${currentChatRoom}/chats/${messageID}/`);
+  $(document).on("click", "#" + delBtnID, function () {
+    var messageToDel = rtdb.ref(
+      db,
+      `channels/${currentChatRoom}/chats/${messageID}/`
+    );
     rtdb.remove(messageToDel);
   });
 }
 
-function displayPromoteUser(obj,userID){
-        // adding users to list to be seen
-      var newUserLI = document.createElement('li');
-      newUserLI.innerText = obj.username + " ";
-      
-      // creating button for admin promo
-      var promoteBtn = document.createElement('input');
-      var promoteBtnID = obj.email + "_BtnID";
-      promoteBtn.id = promoteBtnID;
-      promoteBtn.type = "button";
-      promoteBtn.value = "Promote To Admin";
-      newUserLI.append(promoteBtn);//append to element
-  
-      // creating button to demote from admin
-      var demoteBtn = document.createElement('input');
-      var demoteBtnID = obj.email + "_demBtnID";
-      demoteBtn.id = demoteBtnID;
-      demoteBtn.type = "button";
-      demoteBtn.value = "Demote from Admin";
-      
-      newUserLI.append(demoteBtn);
-      
-      // Append to list on DOM
-      $("#userList").append(newUserLI);
-      
-      // binding promote buttons to function event-binding-on-dynamically-created-elements
-      document.getElementById(promoteBtnID).addEventListener("click", function (){
-        var adminRef = rtdb.ref(db, `users/${userID}/roles/admin`)
-        rtdb.set(adminRef,true);
-        alert(obj.username+" was promoted to admin!")
-      });
-  
-        // binding promote buttons to function event-binding-on-dynamically-created-elements
-      document.getElementById(demoteBtnID).addEventListener("click", function (){
-        var adminRef = rtdb.ref(db, `users/${userID}/roles/admin`)
-        rtdb.set(adminRef,false);
-        alert(obj.username+" was demoted from admin!")
-      });
+function displayPromoteUser(obj, userID) {
+  // adding users to list to be seen
+  var newUserLI = document.createElement("li");
+  newUserLI.innerText = obj.username + " ";
+
+  // creating button for admin promo
+  var promoteBtn = document.createElement("input");
+  var promoteBtnID = obj.email + "_BtnID";
+  promoteBtn.id = promoteBtnID;
+  promoteBtn.type = "button";
+  promoteBtn.value = "Promote To Admin";
+  newUserLI.append(promoteBtn); //append to element
+
+  // creating button to demote from admin
+  var demoteBtn = document.createElement("input");
+  var demoteBtnID = obj.email + "_demBtnID";
+  demoteBtn.id = demoteBtnID;
+  demoteBtn.type = "button";
+  demoteBtn.value = "Demote from Admin";
+
+  newUserLI.append(demoteBtn);
+
+  // Append to list on DOM
+  $("#userList").append(newUserLI);
+
+  // binding promote buttons to function event-binding-on-dynamically-created-elements
+  document.getElementById(promoteBtnID).addEventListener("click", function () {
+    var adminRef = rtdb.ref(db, `users/${userID}/roles/admin`);
+    rtdb.set(adminRef, true);
+    alert(obj.username + " was promoted to admin!");
+  });
+
+  // binding promote buttons to function event-binding-on-dynamically-created-elements
+  document.getElementById(demoteBtnID).addEventListener("click", function () {
+    var adminRef = rtdb.ref(db, `users/${userID}/roles/admin`);
+    rtdb.set(adminRef, false);
+    alert(obj.username + " was demoted from admin!");
+  });
 }
 
 /* #######################    Binding Functions   ####################### */
 $("#submitButton").click(sendMessage); // bind listener to send message with click
 
-$("#createChannelBtn").click(function (){
-  var channelNameRef = rtdb.ref(db,"channels/");
-  
+$("#createChannelBtn").click(function () {
+  var channelNameRef = rtdb.ref(db, "channels/");
+
   // creating channel object in DB
   var channelName = {
-    name: $("#channelNameBox").val(),
+    name: $("#channelNameBox").val()
   };
-  rtdb.push(channelNameRef,channelName)
+  rtdb.push(channelNameRef, channelName);
   $("#channelNameBox").val(""); // clear out box
 });
 
@@ -309,7 +318,7 @@ $("#registerCredsButton").click(function () {
 
       // setting infromation
       rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
-      rtdb.set(adminRoleRef,false); //
+      rtdb.set(adminRoleRef, false); //
       rtdb.set(usernameRef, username); // set username up for user
       rtdb.set(userEmailRef, email); // set useraccount to email in case
 
