@@ -271,6 +271,11 @@ function displayPromoteUser(obj,userID){
 /* #######################    Binding Functions   ####################### */
 $("#submitButton").click(sendMessage); // bind listener to send message with click
 
+$("#createChannelBtn").click(function (){
+  var channelName = $("#channelNameBox").val();
+  console.log(channelName);
+});
+
 $("#registerCredsButton").click(function () {
   // bind listener to register message with
   var email = $("#regEmail").val();
