@@ -99,6 +99,12 @@ rtdb.onChildAdded(chatRef, (ss) => {
   displayMessage(ss.val(), ss.key); // passes obj and uuid to function to display
 });
 
+// renders when edit made to message in DB
+rtdb.onChildChanged(chatRef, (ss) => {
+  var messageKey = "#" + ss.key + "_msgContents";
+  $(messageKey).text(ss.val().message); // sets new text to this
+});
+
 
 // used when rendering chats
 function displayMessage(obj, messageID) {
