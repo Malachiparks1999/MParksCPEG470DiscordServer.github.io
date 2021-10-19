@@ -105,6 +105,12 @@ rtdb.onChildChanged(chatRef, (ss) => {
   $(messageKey).text(ss.val().message); // sets new text to this
 });
 
+// renders when edit made to message in DB
+rtdb.onChildRemoved(chatRef, (ss) => {
+  if($('#' + ss.key + '_liItem') != null){
+    $('#' + ss.key + '_liItem').remove();
+  }
+});
 
 // used when rendering chats
 function displayMessage(obj, messageID) {
