@@ -177,13 +177,18 @@ function displayMessage(obj, messageID) {
   // appending item to render on page
   $("#chatLog").append(msgListWrapper);
   
-  /*
-  </input><input type=button id=" +
-        delBtnID +
-        " value=Delete></input></p></div></li>"
-  var delBtnID = messageID + "_delBtn";
-  */
-
+  // edit button listeners (pulled from https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
+  $(document).on("click", "#"+editBtnID, function(){
+    
+    //EDITNG FLAG THAT MESSAGE HAS BEEN EDITED
+    var editMessageRef = rtdb.ref(db, `/chats/${messageID}/edited/`);
+    rtdb.set(editMessageRef, "true");
+    
+    // EDITS MESSAGE HELL YEAH
+    var newVal = $(document).find('#'+editInputTextID).val();
+    var currMessageRef = rtdb.ref(db, `/chats/${messageID}/message/`);
+    rtdb.set(currMessageRef, newVal + " (edited)");
+  });
 }
 
 /* #######################    Binding Functions   ####################### */
