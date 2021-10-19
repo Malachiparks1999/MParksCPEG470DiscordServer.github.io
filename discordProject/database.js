@@ -259,6 +259,13 @@ function displayPromoteUser(obj,userID){
         rtdb.set(adminRef,true);
         alert(obj.username+" was promoted to admin!")
       });
+  
+        // binding promote buttons to function event-binding-on-dynamically-created-elements
+      document.getElementById(demoteBtnID).addEventListener("click", function (){
+        var adminRef = rtdb.ref(db, `users/${userID}/roles/admin`)
+        rtdb.set(adminRef,false);
+        alert(obj.username+" was demoted from admin!")
+      });
 }
 
 /* #######################    Binding Functions   ####################### */
