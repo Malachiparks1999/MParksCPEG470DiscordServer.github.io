@@ -71,24 +71,34 @@ function sendMessage() {
 
 fbauth.onAuthStateChanged(auth, (user) => {
   if (!!user) {
+    // change admin status here
+    console.log(adminStatus);
+    var adminRef = rtdb.ref(db, `users/${auth.currentUser.uid}/roles/admin`);
+    rtdb.onValue(adminRef, (ss) => {
+      adminStatus = ss.val();
+      if(adminStatus){
+        $(".admin-promotion").show() // hide admin area)
+      }
+    });
+    
     // check to see if there is a user
     $(".login-wrapper").hide(); // hide login and register button
     $(".logoutUser").show(); // show logout button
     $(".chatSection").show(); // show chat area
     $("#loggedIn").html("Logged in as: " + user.displayName); // show who is logged in
-    
-    // change admin status here
 
     $("#logoutButton").on("click", () => {
       fbauth.signOut(auth);
       $(".logoutUser").hide();
       $(".chatSection").hide(); // show chat area
+      $(".admin-promotion").hide() // hide admin area
       $(".login-wrapper").show();
     });
   } else {
     $(".login-wrapper").show();
     $(".logoutUser").hide();
     $(".chatSection").hide();
+    $(".admin-promotion").hide() // hide admin area
   }
 });
 
@@ -212,8 +222,6 @@ function displayMessage(obj, messageID) {
 /* #######################    Binding Functions   ####################### */
 $("#submitButton").click(sendMessage); // bind listener to send message with click
 
-// delete message here binding + editing message here binding
-
 $("#registerCredsButton").click(function () {
   // bind listener to register message with
   var email = $("#regEmail").val();
@@ -234,11 +242,13 @@ $("#registerCredsButton").click(function () {
       var uid = somedata.user.uid;
       // refs section
       var userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);
+      var adminRoleRef = rtdb.ref(db, `/users/${uid}/roles/admin`);
       var userEmailRef = rtdb.ref(db, `users/${uid}/email`);
       var usernameRef = rtdb.ref(db, `users/${uid}/username`);
 
       // setting infromation
       rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
+      rtdb.set(adminRoleRef,false); //
       rtdb.set(usernameRef, username); // set username up for user
       rtdb.set(userEmailRef, email); // set useraccount to email in case
 
@@ -275,7 +285,6 @@ $("#loginButton").click(function () {
   fbauth
     .signInWithEmailAndPassword(auth, email, pwd)
     .then((somedata) => {
-      console.log(somedata);
       $("#loginEmail").val("");
       $("#loginPass").val("");
     })
