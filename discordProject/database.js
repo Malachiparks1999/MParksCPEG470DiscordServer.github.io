@@ -81,6 +81,24 @@ fbauth.onAuthStateChanged(auth, (user) => {
       }
     });
     
+    // display list of users here to promote if admin
+    var allUsersRef = rtdb.ref(db,'/users/')
+    rtdb.onChildAdded(allUsersRef, (ss) => {
+      // adding users to list to be seen
+      var newUserLI = document.createElement('li');
+      newUserLI.innerText = ss.val().username + " ";
+      
+      // creating button for admin promo
+      var promoteBtn = document.createElement('input');
+      promoteBtn.type = "button";
+      promoteBtn.value = "Promote To Admin";
+      newUserLI.append(promoteBtn);
+      
+      
+      // finally appending last
+      $("#userList").append(newUserLI);
+    });
+    
     // check to see if there is a user
     $(".login-wrapper").hide(); // hide login and register button
     $(".logoutUser").show(); // show logout button
