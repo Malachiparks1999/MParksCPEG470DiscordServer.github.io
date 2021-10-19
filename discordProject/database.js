@@ -76,7 +76,7 @@ fbauth.onAuthStateChanged(auth, (user) => {
     rtdb.onValue(adminRef, (ss) => {
       adminStatus = ss.val();
       if(adminStatus){
-        $(".admin-promotion").show() // hide admin area)
+        $(".admin-controls").show() // hide admin area)
       }
     });
     
@@ -98,7 +98,7 @@ fbauth.onAuthStateChanged(auth, (user) => {
       fbauth.signOut(auth);
       $(".logoutUser").hide();
       $(".chatSection").hide(); // show chat area
-      $(".admin-promotion").hide() // hide admin area
+      $(".admin-controls").hide() // hide admin area
       $(".login-wrapper").show();
       adminStatus = false;
     });
@@ -106,7 +106,7 @@ fbauth.onAuthStateChanged(auth, (user) => {
     $(".login-wrapper").show();
     $(".logoutUser").hide();
     $(".chatSection").hide();
-    $(".admin-promotion").hide() // hide admin area
+    $(".admin-controls").hide() // hide admin area
     adminStatus = false;
   }
 });
