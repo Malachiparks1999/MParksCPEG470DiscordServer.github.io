@@ -39,15 +39,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+// GLOBAL VARS
+let adminStatus = false; // var for checking if user is admin upon authLogin
+let currentChatRoom = "-MmPN7iSI47U5gNrrzKB"; //general chat
+
 // set up database communication vars
 const db = rtdb.getDatabase(app);
-const chatRef = rtdb.ref(db, "/chats");
+const chatRef = rtdb.ref(db, `channels/${currentChatRoom}/chats`);
 
 // set up database auth vars
 let auth = fbauth.getAuth(app);
-
-// var for checking if user is admin upon authLogin
-let adminStatus = false;
 
 /* #######################    Send Messages Functions   ####################### */
 
@@ -217,13 +218,13 @@ function displayMessage(obj, messageID) {
     
     // EDITS MESSAGE HELL YEAH
     var newVal = $(document).find('#'+editInputTextID).val();
-    var currMessageRef = rtdb.ref(db, `/chats/${messageID}/message/`);
+    var currMessageRef = rtdb.ref(db, `channels/${currentChatRoom}/chats/${messageID}/message/`);
     rtdb.set(currMessageRef, newVal + " (edited)");
   });
   
   // delete button listeners (pulled from https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
   $(document).on("click", "#"+delBtnID, function(){
-    var messageToDel = rtdb.ref(db, `chats/${messageID}/`);
+    var messageToDel = rtdb.ref(db, `channels/${currentChatRoom}/chats/${messageID}/`);
     rtdb.remove(messageToDel);
   });
 }
