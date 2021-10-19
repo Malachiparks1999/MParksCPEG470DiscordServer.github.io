@@ -100,12 +100,14 @@ fbauth.onAuthStateChanged(auth, (user) => {
       $(".chatSection").hide(); // show chat area
       $(".admin-promotion").hide() // hide admin area
       $(".login-wrapper").show();
+      adminStatus = false;
     });
   } else {
     $(".login-wrapper").show();
     $(".logoutUser").hide();
     $(".chatSection").hide();
     $(".admin-promotion").hide() // hide admin area
+    adminStatus = false;
   }
 });
 
@@ -237,8 +239,16 @@ function displayPromoteUser(obj,userID){
       promoteBtn.id = promoteBtnID;
       promoteBtn.type = "button";
       promoteBtn.value = "Promote To Admin";
+      newUserLI.append(promoteBtn);//append to element
+  
+      // creating button to demote from admin
+      var demoteBtn = document.createElement('input');
+      var demoteBtnID = obj.email + "_demBtnID";
+      demoteBtn.id = demoteBtnID;
+      demoteBtn.type = "button";
+      demoteBtn.value = "Demote from Admin";
       
-      newUserLI.append(promoteBtn);
+      newUserLI.append(demoteBtn);
       
       // Append to list on DOM
       $("#userList").append(newUserLI);
@@ -249,17 +259,6 @@ function displayPromoteUser(obj,userID){
         rtdb.set(adminRef,true);
         alert(obj.username+" was promoted to admin!")
       });
-        
-        /*
-        //EDITNG FLAG THAT MESSAGE HAS BEEN EDITED
-        var editMessageRef = rtdb.ref(db, `/chats/${messageID}/edited/`);
-        rtdb.set(editMessageRef, "true");
-
-        // EDITS MESSAGE HELL YEAH
-        var newVal = $(document).find('#'+editInputTextID).val();
-        var currMessageRef = rtdb.ref(db, `/chats/${messageID}/message/`);
-        rtdb.set(currMessageRef, newVal + " (edited)");
-        */
 }
 
 /* #######################    Binding Functions   ####################### */
