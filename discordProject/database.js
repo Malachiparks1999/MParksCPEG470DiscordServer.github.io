@@ -195,6 +195,12 @@ function displayMessage(obj, messageID) {
     var currMessageRef = rtdb.ref(db, `/chats/${messageID}/message/`);
     rtdb.set(currMessageRef, newVal + " (edited)");
   });
+  
+  // delete button listeners (pulled from https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
+  $(document).on("click", "#"+delBtnID, function(){
+    var messageToDel = rtdb.ref(db, `chats/${messageID}/`);
+    rtdb.remove(messageToDel);
+  });
 }
 
 /* #######################    Binding Functions   ####################### */
