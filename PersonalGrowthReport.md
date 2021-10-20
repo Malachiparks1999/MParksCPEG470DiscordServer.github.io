@@ -65,3 +65,14 @@ Before I answer the questions for the questions for the Personal Growth Report I
 >   7. *Week 7:* Editing Messages + Admin Accounts + Channel Creation
 
 **2. How did you meaningfully grow as a developer from the project (if you did)?**
+
+> I barely have done any developer work with creating projects - my goal has to been to delve into developer work more.
+> This project has shown me it's okay to produce junk to refine your skills and to eventually build a secure masterpiece.
+> Yes, you will be discouraged but push through it --- developers before you and to come will have the same issues to face.
+
+**3. Were there any "A-HA" insights that you'll carry with you into future work?**
+
+> * Lets objects handle their own domain - don't need to track all information if I don't want to
+> * Be comfortable with parsing --- will be doing more of this
+> * Never worked with Javascript/HTML/CSS --- will be taking this and want to learn more about it
+> * JQUERY   --- figured out how this works and i'll want to use this more in coding
