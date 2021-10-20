@@ -95,12 +95,12 @@ Before I answer the questions for the questions for the Personal Growth Report I
 
 **6.     Rate your sense of mastery on a scale of 1-10 for our mastery tasks for this project:**
 
-> You can host a website using static files on a CDN - 8
-> You can display data read from a database dynamically - 7
-> You can write data to a database (and have other users see it) - 7
-> You can manage client-side "routing", "deep-linking", and display different screens based on the user's choices - 5
-> You can design your database (or API services) to give you what you need on the screen you need it - 7
-> Given an array of JSON objects display them each in a template and let a user interact with any particular object - 7
-> You can setup OAuth and passwords with email resets for your users - 10
-> You can assign roles to users based on their auth token and control access based on those roles - 6
-> You can allow users to create a new server/channel/page dynamically and others route to that synthetic page - 3
+    You can host a website using static files on a CDN - 8  
+    You can display data read from a database dynamically - 7  
+    You can write data to a database (and have other users see it) - 7  
+    You can manage client-side "routing", "deep-linking", and display different screens based on the user's choices - 5  
+    You can design your database (or API services) to give you what you need on the screen you need it - 7  
+    Given an array of JSON objects display them each in a template and let a user interact with any particular object - 7  
+    You can setup OAuth and passwords with email resets for your users - 10  
+    You can assign roles to users based on their auth token and control access based on those roles - 6  
+    You can allow users to create a new server/channel/page dynamically and others route to that synthetic page - 3  
