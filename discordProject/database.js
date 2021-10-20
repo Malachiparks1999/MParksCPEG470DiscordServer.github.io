@@ -93,6 +93,7 @@ fbauth.onAuthStateChanged(auth, (user) => {
     $(".login-wrapper").hide(); // hide login and register button
     $(".logoutUser").show(); // show logout button
     $(".chatSection").show(); // show chat area
+    renderChannels();
     renderChats();
     $("#loggedIn").html("Logged in as: " + user.displayName); // show who is logged in
 
@@ -275,6 +276,31 @@ function displayPromoteUser(obj, userID) {
     var adminRef = rtdb.ref(db, `users/${userID}/roles/admin`);
     rtdb.set(adminRef, false);
     alert(obj.username + " was demoted from admin!");
+  });
+}
+
+function renderChannels(){
+  var channelsRef = rtdb.ref(db,`/channels/`);
+  
+  $("#existingChannelBtnList").empty(); // ensure no dups
+  $("#existingChannelBtnList").append("<h4> CHANNELS: </h4>")
+  
+  // render when child is added
+  rtdb.onChildAdded(channelsRef, (ss) =>{
+    var channelBtnID = ss.key + "_changeChannelBtn"
+    
+    // setting up content of button
+    var channelBtn = document.createElement("button");
+    channelBtn.id = channelBtnID;
+    channelBtn.textContent = ss.val().name;
+    
+     // appending to list to render and display
+    $("#existingChannelBtnList").append(channelBtn);
+    
+    // handle with swapping channels!!!!
+    $("#"+channelBtnID).click(function(){
+      console.log("clicked");
+    });
   });
 }
 
