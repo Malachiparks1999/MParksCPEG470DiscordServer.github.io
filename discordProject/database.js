@@ -61,7 +61,7 @@ function sendMessage() {
     author: auth.currentUser.uid,
     message: messageTxt,
     timestamp: parseInt(currDate.getTime()),
-    edited: "false"
+    edited: false
   };
   rtdb.push(chatRef, msgToBeSent);
 
@@ -231,7 +231,7 @@ function displayMessage(obj, messageID) {
     rtdb.get(userChannelRef).then((ss) => {
     //EDITNG FLAG THAT MESSAGE HAS BEEN EDITED
     var editMessageRef = rtdb.ref(db, `channels/${ss.val()}/chats/${messageID}/edited/`);
-    rtdb.set(editMessageRef, "true");
+    rtdb.set(editMessageRef, true);
       
       // Edits the message
       var newVal = $(document)
