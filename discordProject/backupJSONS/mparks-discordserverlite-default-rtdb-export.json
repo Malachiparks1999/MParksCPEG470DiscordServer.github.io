@@ -1,0 +1,205 @@
+{
+  "channels" : {
+    "-MmQ69Dd7AZAPV6xDwHo" : {
+      "chats" : {
+        "-MmQP68mfTIAZ5MIw6Ue" : {
+          "author" : "rEqCs2L9SAOm2GUejbwWcgm5gN73",
+          "edited" : "false",
+          "message" : "dd",
+          "timestamp" : 1634694886513
+        },
+        "-MmQ_fYjMDPz-uM13I4c" : {
+          "author" : "IG5djeEW98cNcSLgTQ074YSugQg1",
+          "edited" : "true",
+          "message" : "gg (edited)",
+          "timestamp" : 1634697919186
+        }
+      },
+      "name" : "General Chat"
+    },
+    "-MmQ6LDqSYkW2db2W0WE" : {
+      "chats" : {
+        "-MmQBxT84krrBPdUBDHt" : {
+          "author" : "IG5djeEW98cNcSLgTQ074YSugQg1",
+          "edited" : "false",
+          "message" : "abc (edited)",
+          "timestamp" : 1634691439007
+        },
+        "-MmQQhhuX01auSfmpW-c" : {
+          "author" : "IG5djeEW98cNcSLgTQ074YSugQg1",
+          "edited" : "false",
+          "message" : "def (edited)",
+          "timestamp" : 1634695306616
+        },
+        "-MmQQkCMiQKqyDP0S5-B" : {
+          "author" : "IG5djeEW98cNcSLgTQ074YSugQg1",
+          "edited" : "false",
+          "message" : "ghi (edited)",
+          "timestamp" : 1634695316821
+        },
+        "-MmQYrRjz0UQ_8Q7Pxwv" : {
+          "author" : "IG5djeEW98cNcSLgTQ074YSugQg1",
+          "edited" : "false",
+          "message" : "jkl (edited)",
+          "timestamp" : 1634697443607
+        }
+      },
+      "name" : "abcdef"
+    }
+  },
+  "chats" : {
+    "-MmBfNgzGfegmpsPi5Db" : {
+      "author" : "29cuoZ5tGsQhmDcArjpInoDUWXR2",
+      "edited" : "false",
+      "message" : "alksdjfalkdjf",
+      "timestamp" : 1634447755129
+    },
+    "-MmBhtbAZpwENT_mqDYc" : {
+      "author" : "29cuoZ5tGsQhmDcArjpInoDUWXR2",
+      "edited" : "false",
+      "message" : "aswefdasdfasd",
+      "timestamp" : 1634448414207
+    },
+    "-MmBhuIQTw6E0vmxhNQs" : {
+      "author" : "29cuoZ5tGsQhmDcArjpInoDUWXR2",
+      "edited" : "false",
+      "message" : "asdfasdfasdfsf",
+      "timestamp" : 1634448417039
+    },
+    "-MmDeUsrCerIVSQ3RJMr" : {
+      "author" : "qwXbkZcVGlQir0p5D8Xw1VK0aAD3",
+      "edited" : "false",
+      "message" : "ads",
+      "timestamp" : 1634481077171
+    },
+    "-MmEHICFgDCzv87M-UBP" : {
+      "author" : "byZbsFEOwEU6FblptXpcw41af5o1",
+      "edited" : "false",
+      "message" : "ss",
+      "timestamp" : 1634491512062
+    },
+    "-MmJBJTzanllLw6roz7C" : {
+      "author" : "IG5djeEW98cNcSLgTQ074YSugQg1",
+      "edited" : "false",
+      "message" : "test",
+      "timestamp" : 1634573830775
+    },
+    "-MmPTGYeGUlXQuqGirHo" : {
+      "edited" : "true",
+      "message" : "fasdf (edited)"
+    },
+    "-MmQBvIbzjQZiJ-OSKJf" : {
+      "edited" : "true"
+    },
+    "-MmQBxT84krrBPdUBDHt" : {
+      "edited" : "true"
+    },
+    "-MmQHGfpqv6ez1fa9VW1" : {
+      "edited" : "true"
+    },
+    "-MmQQhhuX01auSfmpW-c" : {
+      "edited" : "true"
+    },
+    "-MmQQkCMiQKqyDP0S5-B" : {
+      "edited" : "true"
+    },
+    "-MmQYhRIRNx7cr2GcmeT" : {
+      "edited" : "true"
+    },
+    "-MmQYrRjz0UQ_8Q7Pxwv" : {
+      "edited" : "true"
+    }
+  },
+  "users" : {
+    "29cuoZ5tGsQhmDcArjpInoDUWXR2" : {
+      "email" : "testtest@udel.edu",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "asldkjals;kd"
+    },
+    "2qz5nAxT0PTxORntKprVrT5GAjs2" : {
+      "email" : "John@aol.com",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "johnny "
+    },
+    "IG5djeEW98cNcSLgTQ074YSugQg1" : {
+      "email" : "test@udel.edu",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "tests"
+    },
+    "N5iOnoGbG6bY1bCLdSCyKT9ljps2" : {
+      "email" : "realbigfarts@fart.edu",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "fartfart"
+    },
+    "UKkcEK79ibdHLMTpkxgnZV0qQSG3" : {
+      "email" : "abc@udel.edu",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "abc"
+    },
+    "byZbsFEOwEU6FblptXpcw41af5o1" : {
+      "email" : "logan@aol.com",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "log"
+    },
+    "g4HDUIm1DaQWxJ5hD2CvtnFs0ij1" : {
+      "email" : "ims3d82@gmail.com",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "dwawad"
+    },
+    "pY3jzuSbFFfPgGDBSVi2i9rK5yM2" : {
+      "email" : "apple@aol.com",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "apple"
+    },
+    "qwXbkZcVGlQir0p5D8Xw1VK0aAD3" : {
+      "email" : "techiehelpsyou@gmail.com",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : false,
+        "user" : true
+      },
+      "username" : "techiehelpsyou"
+    },
+    "rEqCs2L9SAOm2GUejbwWcgm5gN73" : {
+      "email" : "malparks@udel.edu",
+      "location" : "-MmQ69Dd7AZAPV6xDwHo",
+      "roles" : {
+        "admin" : true,
+        "user" : true
+      },
+      "username" : "malparks"
+    }
+  }
+}
