@@ -39,16 +39,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+// set up database auth vars
+let auth = fbauth.getAuth(app);
+
 // GLOBAL VARS
 let adminStatus = false; // var for checking if user is admin upon authLogin
-let currentChatRoom = "-MmPN7iSI47U5gNrrzKB"; //general chat
+let currentChatRoom = "-MmQ69Dd7AZAPV6xDwHo"; //general chat
 
 // set up database communication vars
 const db = rtdb.getDatabase(app);
-const chatRef = rtdb.ref(db, `channels/${currentChatRoom}/chats`);
-
-// set up database auth vars
-let auth = fbauth.getAuth(app);
+let chatRef = rtdb.ref(db, `channels/${currentChatRoom}/chats`);
 
 /* #######################    Send Messages Functions   ####################### */
 
@@ -78,7 +78,16 @@ fbauth.onAuthStateChanged(auth, (user) => {
       adminStatus = ss.val();
       if (adminStatus) {
         $(".admin-controls").show(); // hide admin area)
+      } else {
+        $(".admin-controls").hide(); // hide admin area)
       }
+    });
+
+    // checking current user location
+    var userChannelRef = rtdb.ref(db, `users/${auth.currentUser.uid}/location`);
+    rtdb.onValue(userChannelRef, (ss) => {
+      chatRef = rtdb.ref(db, `channels/${ss.val()}/chats`); // reload where you left off
+      renderChats();
     });
 
     // display list of users here to promote if admin
@@ -94,7 +103,7 @@ fbauth.onAuthStateChanged(auth, (user) => {
     $(".logoutUser").show(); // show logout button
     $(".chatSection").show(); // show chat area
     renderChannels();
-    renderChats();
+    //renderChats();
     $("#loggedIn").html("Logged in as: " + user.displayName); // show who is logged in
 
     $("#logoutButton").on("click", () => {
@@ -115,25 +124,25 @@ fbauth.onAuthStateChanged(auth, (user) => {
 });
 
 /* #######################    Rendering Functions   ####################### */
-function renderChats(){
+function renderChats() {
   $("#chatLog").empty(); // make sure messages don't repeat
-// renders when chat is added to DB
-rtdb.onChildAdded(chatRef, (ss) => {
-  displayMessage(ss.val(), ss.key); // passes obj and uuid to function to display
-});
+  // renders when chat is added to DB
+  rtdb.onChildAdded(chatRef, (ss) => {
+    displayMessage(ss.val(), ss.key); // passes obj and uuid to function to display
+  });
 
-// renders when edit made to message in DB
-rtdb.onChildChanged(chatRef, (ss) => {
-  var messageKey = "#" + ss.key + "_msgContents";
-  $(messageKey).text(ss.val().message); // sets new text to this
-});
+  // renders when edit made to message in DB
+  rtdb.onChildChanged(chatRef, (ss) => {
+    var messageKey = "#" + ss.key + "_msgContents";
+    $(messageKey).text(ss.val().message); // sets new text to this
+  });
 
-// renders when edit made to message in DB
-rtdb.onChildRemoved(chatRef, (ss) => {
-  if ($("#" + ss.key + "_liItem") != null) {
-    $("#" + ss.key + "_liItem").remove();
-  }
-});
+  // renders when edit made to message in DB
+  rtdb.onChildRemoved(chatRef, (ss) => {
+    if ($("#" + ss.key + "_liItem") != null) {
+      $("#" + ss.key + "_liItem").remove();
+    }
+  });
 }
 
 // used when rendering chats
@@ -214,30 +223,41 @@ function displayMessage(obj, messageID) {
 
   // edit button listeners (pulled from https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
   $(document).on("click", "#" + editBtnID, function () {
-    //EDITNG FLAG THAT MESSAGE HAS BEEN EDITED
-    var editMessageRef = rtdb.ref(db, `/chats/${messageID}/edited/`);
-    rtdb.set(editMessageRef, "true");
 
     // EDITS MESSAGE HELL YEAH
-    var newVal = $(document)
-      .find("#" + editInputTextID)
-      .val();
-    var currMessageRef = rtdb.ref(
-      db,
-      `channels/${currentChatRoom}/chats/${messageID}/message/`
-    );
-    rtdb.set(currMessageRef, newVal + " (edited)");
+    // checking current user location
+    var userChannelRef = rtdb.ref(db, `users/${auth.currentUser.uid}/location`);
+
+    rtdb.get(userChannelRef).then((ss) => {
+    //EDITNG FLAG THAT MESSAGE HAS BEEN EDITED
+    var editMessageRef = rtdb.ref(db, `channels/${ss.val()}/chats/${messageID}/edited/`);
+    rtdb.set(editMessageRef, "true");
+      
+      // Edits the message
+      var newVal = $(document)
+        .find("#" + editInputTextID)
+        .val();
+      var currMessageRef = rtdb.ref(
+        db,
+        `channels/${ss.val()}/chats/${messageID}/message/`
+      );
+      rtdb.set(currMessageRef, newVal + " (edited)");
+    }); // ends the .then after .get
   });
 
   // delete button listeners (pulled from https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
   $(document).on("click", "#" + delBtnID, function () {
-    var messageToDel = rtdb.ref(
-      db,
-      `channels/${currentChatRoom}/chats/${messageID}/`
-    );
-    rtdb.remove(messageToDel);
-  });
-}
+    var userChannelRef = rtdb.ref(db, `users/${auth.currentUser.uid}/location`);
+
+    rtdb.get(userChannelRef).then((ss) => {
+      var messageToDel = rtdb.ref(
+        db,
+        `channels/${ss.val()}/chats/${messageID}/`
+      ); // ends messageToDel
+      rtdb.remove(messageToDel);
+    }); // ends .get
+  }); // ends delClick
+} // end display messages
 
 function displayPromoteUser(obj, userID) {
   // adding users to list to be seen
@@ -279,28 +299,37 @@ function displayPromoteUser(obj, userID) {
   });
 }
 
-function renderChannels(){
-  var channelsRef = rtdb.ref(db,`/channels/`);
-  
+function renderChannels() {
   $("#existingChannelBtnList").empty(); // ensure no dups
-  $("#existingChannelBtnList").append("<h4> CHANNELS: </h4>")
-  
+  $("#existingChannelBtnList").append("<h4> CHANNELS: </h4>");
+
   // render when child is added
-  rtdb.onChildAdded(channelsRef, (ss) =>{
-    var channelBtnID = ss.key + "_changeChannelBtn"
-    
-    // setting up content of button
-    var channelBtn = document.createElement("button");
-    channelBtn.id = channelBtnID;
-    channelBtn.textContent = ss.val().name;
-    
-     // appending to list to render and display
-    $("#existingChannelBtnList").append(channelBtn);
-    
-    // handle with swapping channels!!!!
-    $("#"+channelBtnID).click(function(){
-      console.log("clicked");
-    });
+  var channelsRef = rtdb.ref(db, `/channels/`);
+  rtdb.onChildAdded(channelsRef, (ss) => {
+    displayChannels(ss.val(), ss.key);
+  });
+}
+
+function displayChannels(obj, chatRoomKey) {
+  var channelBtnID = chatRoomKey + "_changeChannelBtn";
+
+  // setting up content of button
+  var channelBtn = document.createElement("button");
+  channelBtn.id = channelBtnID;
+  channelBtn.textContent = obj.name;
+
+  // appending to list to render and display
+  $("#existingChannelBtnList").append(channelBtn);
+
+  // handle with swapping channels!!!!
+  $("#" + channelBtnID).click(function () {
+    var locRef = rtdb.ref(db, `users/${auth.currentUser.uid}/location`);
+    rtdb.set(locRef, chatRoomKey);
+    chatRef = rtdb.ref(db, `channels/${chatRoomKey}/chats`); // forces to load new page
+    $("#title").text(
+      "Welcome to Braindump - Channel: " + channelBtn.textContent
+    ); // show what channel
+    renderChats();
   });
 }
 
@@ -341,12 +370,14 @@ $("#registerCredsButton").click(function () {
       var adminRoleRef = rtdb.ref(db, `/users/${uid}/roles/admin`);
       var userEmailRef = rtdb.ref(db, `users/${uid}/email`);
       var usernameRef = rtdb.ref(db, `users/${uid}/username`);
+      var userLoc = rtdb.ref(db, `users/${uid}/location`);
 
       // setting infromation
       rtdb.set(userRoleRef, true); // user only accounts (not admin, mod or owner)
-      rtdb.set(adminRoleRef, false); //
+      rtdb.set(adminRoleRef, false); // set admin role as false
       rtdb.set(usernameRef, username); // set username up for user
       rtdb.set(userEmailRef, email); // set useraccount to email in case
+      rtdb.set(userLoc, "-MmQ69Dd7AZAPV6xDwHo");
 
       // Editing display name for user to call later
       fbauth.updateProfile(somedata.user, {
