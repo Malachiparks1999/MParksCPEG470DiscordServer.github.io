@@ -76,3 +76,31 @@ Before I answer the questions for the questions for the Personal Growth Report I
 > * Be comfortable with parsing --- will be doing more of this
 > * Never worked with Javascript/HTML/CSS --- will be taking this and want to learn more about it
 > * JQUERY   --- figured out how this works and i'll want to use this more in coding
+
+**4. If you collaborated with other folks in the class what was that like?**
+
+> I collaborated with Ainsworth, Justin and Nick from time to time to swap ideas back and forth on how
+> on how to implement features from time to time such as creating messages dynamically to how 
+> servers/channels should be created in our baby discord and so on.
+>
+> We would bat back and forth pros and cons of each implementation and also shared how it could 
+> potentally be exploited and so on. Overall was a great collaborative experience for this project
+
+**5. Are you proud enough of the work that you'd use it in a job interview/portfolio? If not, what would you change to make it that way?**
+
+> I would use this in a interview/portfolio as a baseline to show what I could create with very little experience.
+> My end result would be having a very polished and secured product for comparision to show what I can create
+> with refined skills. However, I would change the CSS so it looks more polished and, if I could restart the
+> project, I would design my database/codebase around channels initially for less tech debt.
+
+**6.     Rate your sense of mastery on a scale of 1-10 for our mastery tasks for this project:**
+
+> You can host a website using static files on a CDN - 8
+> You can display data read from a database dynamically - 7
+> You can write data to a database (and have other users see it) - 7
+> You can manage client-side "routing", "deep-linking", and display different screens based on the user's choices - 5
+> You can design your database (or API services) to give you what you need on the screen you need it - 7
+> Given an array of JSON objects display them each in a template and let a user interact with any particular object - 7
+> You can setup OAuth and passwords with email resets for your users - 10
+> You can assign roles to users based on their auth token and control access based on those roles - 6
+> You can allow users to create a new server/channel/page dynamically and others route to that synthetic page - 3
