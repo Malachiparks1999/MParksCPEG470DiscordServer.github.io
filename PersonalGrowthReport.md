@@ -20,10 +20,23 @@
 #### CPEG470-010: Web Application Security ####
 #### Expected Grade: C (Explanation Below) :face_with_head_bandage: </br> </br> ####
 
-## Explanation ##
 
 #### Completed/Completedish? ####
+* Hosting Static Files on CDN
+* Display data from database dynamically
+* Write data to database for all to view
+* Showing user screens based upon context
+* Can interact with JSON object array (Edit/Delete messages)
+* OAuth and users can reset passwords
+* Roles such as user and admin read from my DB
+* Can synethically create channels on the page
+
 #### Unimplented ####
+* deep-linking with URL params  or routing
+* RBAC - Firebase Rules (broke everything every time I change them regardless of rules)
+
+
+## Explanation ##
 
 ![How I feel after this project](images/CurrentEmotions_Ifunny.jpg)
 
@@ -31,11 +44,11 @@ Before I answer the questions for the questions for the Personal Growth Report I
 
 *TLDR: This is not my best work - I can produce better work if I gave myself more time and restarted rather than patching onto existing flawed code*
 
-## :seedling: :potted_plant: :evergreen_tree: PERSONAL GROWTH REPORT ANSWERS :evergreen_tree:  :potted_plant: :seedling: ## </br>
+## :seedling: :potted_plant: :evergreen_tree: PERSONAL GROWTH REPORT ANSWERS :evergreen_tree:  :potted_plant: :seedling:</br>
 
 **1. Describe the timeline of the project: HOW MANY HOURS DID YOU SPEND, when did you start, bottlenecks you faced, etc.**
 
-> *__Hours Spent:__* 65 hrs minimum </br>
+> *__Hours Spent:__* 70 hrs minimum </br>
 > *__Started:__* Roughly when the project was assigned - so September 15th maybe? </br>
 > *__Bottlenecks:__*
 >   * Changing snipets of code causing everything to break
@@ -49,6 +62,6 @@ Before I answer the questions for the questions for the Personal Growth Report I
 >   4. *Week 4:* Login Screen + Firebase OAuth
 >   5. *Week 5:* Sidetracked on other work
 >   6. *Week 6:* Reformatted Messages + Rendering + Started editing messages (Not done)
->   7. *Week 7:* Editing Messages + Admin Accounts + Channel Creation + Deep Linking
+>   7. *Week 7:* Editing Messages + Admin Accounts + Channel Creation
 
 **2. How did you meaningfully grow as a developer from the project (if you did)?**
